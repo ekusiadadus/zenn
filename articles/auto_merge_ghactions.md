@@ -1,3 +1,10 @@
+---
+title: "GitHub Actionsで、Cron定期実行でプルリクエストを作成してマージする" # 記事のタイトル
+emoji: "⛄" # アイキャッチとして使われる絵文字（1文字だけ）
+type: "tech" # tech: 技術記事 / idea: アイデア記事
+topics: ["GitHub", "GitHub Actions"] # タグ。["markdown", "rust", "aws"]のように指定する
+published: true # 公開設定（falseにすると下書き）
+---
 # GitHub Actionsで、自動でプルリクを作成してマージする方法
 
 `dev` -> `stage` へのプルリクエストの作成とマージをする機会があり、定期的に実行できたら楽なのでGitHub Actionsで作成してみました。
