@@ -92,7 +92,7 @@ compare_and_swap(unsigned long*, unsigned long, unsigned long):
 ```
 
 ```
-lock cmpxchg 
+lock cmpxchg
 ```
 lock を用いて、cmpxchg命令を行うことで、アトミック処理を行います。
 https://docs.microsoft.com/ja-jp/windows-hardware/drivers/debugger/x86-instructions
@@ -211,9 +211,9 @@ struct BakeryLock {
 
 impl BakeryLock {
     fn lock(&mut self, idx: usize) -> LockGuard {
-        
+
         unsafe { write_volatile(&mut self.entering[idx], true)};
-        
+
 
         let mut max = 0;
         for i in 0..NUM_THREADS {
@@ -225,9 +225,9 @@ impl BakeryLock {
         let ticket = max + 1;
         unsafe { write_volatile(&mut self.tickets[idx], Some(ticket))};
 
-        
+
         unsafe { write_volatile(&mut self.entering[idx], false)};
-        
+
         for i in 0..NUM_THREADS {
             if i == idx {
                 continue;
@@ -248,7 +248,7 @@ impl BakeryLock {
                 }
             }
         }
-        
+
         LockGuard { idx }
     }
 }
@@ -259,7 +259,7 @@ struct LockGuard {
 
 impl Drop for LockGuard {
     fn drop(&mut self) {
-        
+
         unsafe { write_volatile(&mut LOCK.tickets[self.idx], None)};
     }
 }

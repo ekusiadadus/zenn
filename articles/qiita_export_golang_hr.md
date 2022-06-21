@@ -4,6 +4,7 @@ tags: Go Elasticsearch Kibana Docker docker-compose
 author: ekusiadadus
 slide: false
 ---
+
 # Go 言語+Elasticsearch で簡易求人サイトバックエンド構築
 
 この記事は、マイナビ Advent Calendar 2021 9 日目の記事です。
@@ -947,4 +948,3 @@ http://localhost:5000/search?keyword=カフェ&state=東京都
 Go 言語で簡易的求人サイトを作成することで、技術的な背景を再勉強することができました。
 
 興味がある方は、是非作成してみてください！
-

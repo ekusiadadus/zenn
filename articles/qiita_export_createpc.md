@@ -21,7 +21,7 @@ slide: false
 マザーボード: [ASRock B450 Steel Legend (B450 AM4 ATX DDR4)](http://www.asrock.com/mb/AMD/B450%20Steel%20Legend/)
 CPU: [Ryzen9 3900X](https://www.amd.com/en/products/cpu/amd-ryzen-9-3900x)
 グラフィックボード: [RTX2060Super](https://www.nvidia.com/en-us/geforce/graphics-cards/rtx-2060-super/)
-SSD: W.D Blue SN550 
+SSD: W.D Blue SN550
 HHD: BUFFALO HD-NRLD4.0U3-BA
 メモリ: GSK F4-3600C19D-16GSXWB
 ファン: NOCTUA NH-D15-CH-BK

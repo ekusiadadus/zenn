@@ -145,7 +145,7 @@ http://wdoor.c.u-tokyo.ac.jp/shogi/x/wdoor2020.7z
 |    kifulist_test_100.txt
 |-  ＜model＞
 |          |  model_policy
-|          
+|
 |-  ＜pydlshogi＞
 |          |  common.py
 |          |  features.py
@@ -185,9 +185,9 @@ pip install --no-cache-dir -e .
 
 ニューラルネットワークの仕様
 
-| 項目 | 値 | 
-| --- | --- | 
-| フィルターサイズ | 3x3 | 
+| 項目 | 値 |
+| --- | --- |
+| フィルターサイズ | 3x3 |
 | 中間層のフィルターサイズ | 192 |
 | ストライド | 1 |
 | パディング層 | 1 |
@@ -399,7 +399,7 @@ for e in range(args.epoch):
         itr_test += 1
         sum_test_accuracy += F.accuracy(y, t).data
     logging.info('epoch = {}, iteration = {}, train loss avr = {}, test accuracy = {}'.format(optimizer.epoch + 1, optimizer.t, sum_loss_epoch / itr_epoch, sum_test_accuracy / itr_test))
-    
+
     optimizer.new_epoch()
 
 logging.info('save the model')
@@ -519,7 +519,7 @@ class PolicyPlayer(BasePlayer):
             legal_logits.append(logits[label])
             # 確率を表示
             print('info string {:5} : {:.5f}'.format(move.usi(), probabilities[label]))
-            
+
         # 確率が最大の手を選ぶ(グリーディー戦略)
         selected_index = greedy(legal_logits)
         # 確率に応じて手を選ぶ(ソフトマックス戦略)
