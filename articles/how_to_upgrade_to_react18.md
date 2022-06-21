@@ -1,3 +1,11 @@
+---
+title: "React 18 にアップグレードする" # 記事のタイトル
+emoji: "🍎" # アイキャッチとして使われる絵文字（1文字だけ）
+type: "tech" # tech: 技術記事 / idea: アイデア記事
+topics: ["TypeScript", "React"] # タグ。["markdown", "rust", "aws"]のように指定する
+published: true # 公開設定（falseにすると下書き）
+---
+
 # React 18 にアップグレードする
 
 仕事で、React 16 or 17 -> React 18 にアップグレードするお祭りがあったので、備忘録です。
