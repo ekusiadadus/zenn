@@ -6,7 +6,7 @@ topics: ["ISUCON", "Golang", "Sqlite","MySQL"] # タグ。["markdown", "rust", "
 published: true # 公開設定（falseにすると下書き）
 ---
 
-# ISUCON12予選にGo言語で出場して、26位で予選落ちした話(「mnsys」)
+# ISUCON12予選にGo言語で出場して、26位で予選落ちした話
 
 ## ISUCON12 予選
 
