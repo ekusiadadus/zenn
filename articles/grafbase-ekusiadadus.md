@@ -10,11 +10,11 @@ published: true # 公開設定（falseにすると下書き）
 
 ## grafbase で、プロジェクトを作成する
 
-![](../images/grafbase/1.png)
+![](/images/grafbase/1.png)
 
 上のようなUIで、かっこいい。
 
-![](../images/grafbase/2.png)
+![](/images/grafbase/2.png)
 
 テンプレートは、いくつか存在している様子。
 
@@ -62,7 +62,7 @@ type Comment @model {
 }
 ```
 
-![](../images/grafbase/3.png)
+![](/images/grafbase/3.png)
 
 こんな感じで、GitHubにリポジトリも作成してくれる。
 
@@ -72,11 +72,11 @@ type Comment @model {
 
 https://twitter.com/ekusiadadus/status/1552797936588922881?s=20&t=Jk6Wvqx2pzrSEod0y1ADIg
 
-![](../images/grafbase/4.png)
+![](/images/grafbase/4.png)
 
 GitHubで、適当にコミットをプッシュすると正常判定されるらしい...(なんで)
 
-![](../images/grafbase/5.png)
+![](/images/grafbase/5.png)
 
 
 playgroundは、ずーとロード中でうごかない:(
