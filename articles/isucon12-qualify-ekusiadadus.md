@@ -18,7 +18,7 @@ ISUCON12予選にチーム「mnsys」として参加しました。
 
 [スコア表](https://isucon.net/archives/56838276.html)
 
-![](../images/isucon12q/score.png)
+![](/images/isucon12q/score.png)
 
 
 ## タイムライン
@@ -27,7 +27,7 @@ ISUCON12予選にチーム「mnsys」として参加しました。
 
 午前9時に起床成功
 
-![](../images/isucon12q/1.png)
+![](/images/isucon12q/1.png)
 
 9時45分くらいまで、ご飯食べたり珈琲作ったりだらだら
 
@@ -39,12 +39,12 @@ ISUCON12予選にチーム「mnsys」として参加しました。
 
 初期スコア: `2910`
  
-![](../images/isucon12q/bench1.png)
+![](/images/isucon12q/bench1.png)
 
 
 競技開始と同時に、MySQLのER図を取り始める。
 
-![](../images/isucon12q/2.png)
+![](/images/isucon12q/2.png)
 
 MySQL WorkBenchを使っていつも通り。
 
@@ -78,7 +78,7 @@ kataribeの解析結果が出始める。
 
 CRUD解析がほぼほぼ終わってくる。
 
-![](../images/isucon12q/crud.png)
+![](/images/isucon12q/crud.png)
 
 この段階で、SqliteのままいくのかMySQLに移行するのかが話題になり始める。
 
@@ -86,16 +86,16 @@ CRUD解析がほぼほぼ終わってくる。
 
 MySQL側で、ユニークなIDを発番している箇所を見つけてUUIDにすればよくね...?になる
 
-![](../images/isucon12q/uuid1.png)
+![](/images/isucon12q/uuid1.png)
 
-![](../images/isucon12q/uuid2.png)
+![](/images/isucon12q/uuid2.png)
 
 ### 12時～14時くらいまで
 
 ここら辺は、地道にN+1クエリの解消をすすめる。
 途中、BulkInsertできそうな箇所があったりしたので修正していく。
 
-![](../images/isucon12q/bulkd1.png)
+![](/images/isucon12q/bulkd1.png)
 
 また、Nginxでのキャッシュを考えたけれどどうやらもともとキャッシュされていそうであんまり効果がなさそう。。。
 
@@ -120,7 +120,7 @@ Sqlite側のチューニングをするために、同梱されていたSqlTrace
 
 tenantDBをCreate している関数があったので、DBを作成する瞬間にインデックス貼ればよさそうになった。
 
-![](../images/isucon12q/index1.png)
+![](/images/isucon12q/index1.png)
 
 この時点で、スコア `8000`-`9000` を出せるようになった。
 
@@ -148,7 +148,7 @@ flockも外すだけ...と思っていたけど外せない。
 
 なんとか、スコア`20943`に戻して終了。
 
-![](../images/isucon12q/score2.png)
+![](/images/isucon12q/score2.png)
 
 ## まとめ
 
@@ -162,4 +162,4 @@ SqliteからMySQLに移行する判断を午前中にできたのはいいもの
 
 また来年頑張ります！
 
-![](../images/isucon12q/timeline.png)
+![](/images/isucon12q/timeline.png)
