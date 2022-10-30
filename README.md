@@ -8,7 +8,7 @@ This repository is collections of my posts on zenn.
 
 Here is my latest posts.
 
-|                                                                      |                                                                                     |
+| 記事                                                                 | リンク                                                                              |
 | :------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
 | grafbase で GraphQL やってみたけど動かない                           | [link](https://zenn.dev/ekusiadadus/articles/grafbase-ekusiadadus)                  |
 | ISUCON12 予選に Go 言語で出場して、26 位で予選落ちした話             | [link](https://zenn.dev/ekusiadadus/articles/isucon12-qualify-ekusiadadus)          |
