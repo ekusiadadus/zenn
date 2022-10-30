@@ -35,7 +35,7 @@ Twitter API を使うために、Twitter に API の申請が必要です。
 自分の場合は、ここで申請理由を結構聞かれて、3 日ほどで申請が通りました。
 メールに書いてある URL にアクセスすると、Twitter API を使うための API キーが発行されます。
 
-![ダッシュボード](/images/twitter_bigquery_jupyterlab/twitter-api-dashboard.png)
+![ダッシュボード](/images/twitter-bigquery-jupyterlab/twitter-api-dashboard.png)
 
 ### Twitter API の使い方
 
