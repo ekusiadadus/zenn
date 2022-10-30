@@ -6,7 +6,7 @@ This repository is collections of my posts on zenn.
 
 ## posts
 
-Here is my latest posts.
+Here are my latest posts.
 
 | 記事                                                                 | リンク                                                                              |
 | :------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
