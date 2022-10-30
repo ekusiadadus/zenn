@@ -20,7 +20,6 @@ Twitter API で取得したデータを、BigQuery に格納して、JupyterLab 
 
 ## Twitter API
 
-'
 Twitter API を使うには、Twitter のアカウントが必要です。
 Twitter のアカウントを作成したら、Twitter API を使うために、Twitter に API の申請が必要です。
 アプリケーションを作成すると、API キーが発行されます。
