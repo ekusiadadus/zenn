@@ -36,7 +36,7 @@ Twitter API を使うために、Twitter に API の申請が必要です。
 自分の場合は、ここで申請理由を結構聞かれて、3 日ほどで申請が通りました。
 メールに書いてある URL にアクセスすると、Twitter API を使うための API キーが発行されます。
 
-![ダッシュボード](/images/twitter_bigquery_jupyterlab1/twitter-api-dashboard.png)
+![ダッシュボード](/images/twitter_bigquery_jupyterlab/twitter-api-dashboard.png)
 
 ### Twitter API の使い方
 
@@ -59,41 +59,31 @@ curl \
 
 実行結果:
 
-```
+```json
 {
   "data": [
     {
-      "edit_history_tweet_ids": [
-        "1586409141777887232"
-      ],
+      "edit_history_tweet_ids": ["1586409141777887232"],
       "id": "1586409141777887232",
       "text": "ハリポタのタリーズ限定のやつ https://t.co/s0jO6JhLt6"
     },
     {
-      "edit_history_tweet_ids": [
-        "1586397292164022272"
-      ],
+      "edit_history_tweet_ids": ["1586397292164022272"],
       "id": "1586397292164022272",
       "text": "さすがに、Nextに変えるかぁ https://t.co/10tCmyQBcZ"
     },
     {
-      "edit_history_tweet_ids": [
-        "1586396896188198913"
-      ],
+      "edit_history_tweet_ids": ["1586396896188198913"],
       "id": "1586396896188198913",
       "text": "Cloud Flare のこの機能 https://t.co/gZ1HgAV3Q5"
     },
     {
-      "edit_history_tweet_ids": [
-        "1586392219438575617"
-      ],
+      "edit_history_tweet_ids": ["1586392219438575617"],
       "id": "1586392219438575617",
       "text": "Twitter API 使えるようになっとった https://t.co/zNJiWXDSTj"
     },
     {
-      "edit_history_tweet_ids": [
-        "1586363172692594690"
-      ],
+      "edit_history_tweet_ids": ["1586363172692594690"],
       "id": "1586363172692594690",
       "text": "山手線Netflix になってた https://t.co/araQzC3ovp"
     }
@@ -106,7 +96,9 @@ curl \
 }
 ```
 
-![playground](/images/twitter_bigquery_jupyterlab1/twitter-api-test.png)
+[json prettier](https://jsonformatter.org/json-pretty-print)とか、使いました。
+
+![playground](/images/twitter-bigquery-jupyterlab/twitter-api-test.png)
 
 | オプション       | 内容                                                                                                                                                                   |
 | :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -140,7 +132,7 @@ curl \
 "https://api.twitter.com/2/tweets/1551088040285638657/liking_users?max_results=3&user.fields=public_metrics&expansions=pinned_tweet_id&tweet.fields=context_annotations"
 ```
 
-```
+```json
 {
   "data": [
     {
@@ -183,9 +175,7 @@ curl \
     "tweets": [
       {
         "text": "「この道を行けばどうなるものか危ぶむことなかれ 危ぶめば道はなし 踏み出せばその一歩が道となる」\n\n道を作りに来ないか？✨\n\n#ホスト #RT \n#ホストル求人 \n#いいねした人全員フォローする \n#メンコン \n#いいね返し\n#自撮り界隈の人と繋がりたい\n#猪木さんありがとう https://t.co/juGwGlQHcQ",
-        "edit_history_tweet_ids": [
-          "1576352361819217920"
-        ],
+        "edit_history_tweet_ids": ["1576352361819217920"],
         "id": "1576352361819217920"
       }
     ]
@@ -210,7 +200,7 @@ curl \
 
 ツイートにいいねした人の、ユーザー情報やピン止めしているツイートの情報が取得できます。
 
-![playground](/images/twitter_bigquery_jupyterlab1/twitter-api-test-detail.png)
+![playground](/images/twitter_bigquery_jupyterlab/twitter-api-test-detail.png)
 
 ### Twitter API v2 でデータを取得する
 
@@ -275,7 +265,7 @@ if __name__ == "__main__":
 
 実際に動かすと、data.json というファイルが作成されます。
 
-```
+```json
 {
   "data": [
     {
@@ -296,9 +286,7 @@ if __name__ == "__main__":
           }
         ]
       },
-      "edit_history_tweet_ids": [
-        "1586738814474539008"
-      ],
+      "edit_history_tweet_ids": ["1586738814474539008"],
       "id": "1586738814474539008",
       "text": "気が付かなかったけれど、GitHubがハロウィン🎃\nになっていた https://t.co/cjeLSG0JaW"
     },
@@ -320,9 +308,7 @@ if __name__ == "__main__":
           }
         ]
       },
-      "edit_history_tweet_ids": [
-        "1586625496015466496"
-      ],
+      "edit_history_tweet_ids": ["1586625496015466496"],
       "id": "1586625496015466496",
       "text": "トレンドってすごいんだなぁ https://t.co/Hh9UB9dVyj"
     },
@@ -344,9 +330,7 @@ if __name__ == "__main__":
           }
         ]
       },
-      "edit_history_tweet_ids": [
-        "1586625301068492801"
-      ],
+      "edit_history_tweet_ids": ["1586625301068492801"],
       "id": "1586625301068492801",
       "text": "https://t.co/X3S49JX8cN"
     },
@@ -368,9 +352,7 @@ if __name__ == "__main__":
           }
         ]
       },
-      "edit_history_tweet_ids": [
-        "1586624851254513664"
-      ],
+      "edit_history_tweet_ids": ["1586624851254513664"],
       "id": "1586624851254513664",
       "text": "やっぱり、ハロウィンとか特別な日だと全日との検索上位の差分がおおきくなるのか https://t.co/niBE1dVLlL"
     },
@@ -392,9 +374,7 @@ if __name__ == "__main__":
           }
         ]
       },
-      "edit_history_tweet_ids": [
-        "1586619708031193088"
-      ],
+      "edit_history_tweet_ids": ["1586619708031193088"],
       "id": "1586619708031193088",
       "text": "ひさびさにgcp上で、NoteBook立てたけど大分変っていた https://t.co/wbbWezaHhg"
     }
