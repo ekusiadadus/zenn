@@ -13,7 +13,7 @@ slide: false
 Twitter API というものがあるらしく、[Twitter API](https://developer.twitter.com/en/docs)を見てみると、結構面白そうだったので、Twitter API に申し込んでみました。
 申し込みが通ったので、Twitter API を使って、Twitter のデータを取得してみました。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Twitter API 使って、Tweet の情報をbigqueryに格納することに成功(しんどかった)<br>bigqueryにnative jsonっていう、jsonから自動的にカラムを生成してbigqueryに格納してくれるみたいな機能があって(2022.3から？)<br>テーブルスキーマを定義しなくて良さそう(&lt;-めちゃくちゃ失敗した) <a href="https://t.co/y7FhSoUILI">pic.twitter.com/y7FhSoUILI</a></p>&mdash; ⛄ 絶望ドメイン (貧血症)⛄ (@ekusiadadus) <a href="https://twitter.com/ekusiadadus/status/1586791839469686785?ref_src=twsrc%5Etfw">October 30, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+https://twitter.com/ekusiadadus/status/1586791839469686785
 
 Twitter API で取得したデータを、BigQuery に格納して、JupyterLab で分析してみました。
 今回は、Twitter API 部分を紹介します。
