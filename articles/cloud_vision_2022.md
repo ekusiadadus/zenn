@@ -1,5 +1,5 @@
 ---
-title: GCP Cloud Vision 機能一覧 with Go 言語
+title: GCP Cloud Vision よく使う機能まとめ ~ Go言語 ~
 tags: GCP, Go,
 author: ekusiadadus
 slide: false
@@ -8,10 +8,12 @@ slide: false
 # GCP Cloud Vision 機能一覧 with Go 言語
 
 『画像や動画から、文字情報やどのような物体が映っているかを AI で抜き出したい！』と思っている、そこのあなた
-Cloud Vision(https://cloud.google.com/vision) していますか？
+[Cloud Vision](https://cloud.google.com/vision) していますか？
 
-Google Cloud Platform の Cloud Vision というサービスを使うと簡単に画像認識 OCR や物体検知を高性能で体験できます。
+Google Cloud Platform の [Cloud Vision](https://cloud.google.com/vision) というサービスを使うと簡単に画像認識 OCR や物体検知を高性能で体験できます。
 Cloud Vision API の機能一覧と実際にどのような場面で使えるかをまとめました。
+
+[Google Cloud Platform](https://github.com/GoogleCloudPlatform) が[豊富な例を GitHub](https://github.com/GoogleCloudPlatform/golang-samples)に上げてくれているので、興味ある方は実際に触ってみてください。
 
 ## 機能一覧
 
@@ -30,6 +32,8 @@ Cloud Vision API は以下の機能を提供しています。(他にもある�
   - [最後に](#最後に)
 
 ## 顔認識
+
+GCP ページ: [Detecting Faces](https://cloud.google.com/vision/docs/detecting-faces)
 
 人の顔が映っていた場合、顔写真のプロパティを出力します。
 
@@ -91,6 +95,8 @@ Faces:
 
 ## ラベル検出
 
+GCP ページ: [ラベル検出](https://cloud.google.com/vision/docs/label-detection?hl=ja)
+
 画像に写っている物体を検出してくれます。
 
 ![shokki.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/f14b0e75-10b7-732e-c3e7-5a514904c4a7.jpeg)
@@ -118,6 +124,8 @@ Room
 
 ## ランドマーク検出
 
+GCP ページ: [ランドマーク検出](https://cloud.google.com/vision/docs/landmark-detection?hl=ja)
+
 画像に写っているランドマークを検出してくれます。
 
 ```go
@@ -135,6 +143,8 @@ Osaka Castle Park
 ```
 
 ## テキスト検出
+
+GCP ページ: [テキスト検出](https://cloud.google.com/vision/docs/text-detection?hl=ja)
 
 画像に写っているテキストを検出してくれます。
 しかもなんとヘブライ語対応！
@@ -230,6 +240,8 @@ Pages:
 
 ## プロパティ検出
 
+GCP ページ: [プロパティ検出](https://cloud.google.com/vision/docs/detecting-properties?hl=ja)
+
 画像の色や明るさなどのプロパティを検出してくれます。
 (ドミナントカラー以外の使い方をわかっていません...)
 
@@ -257,6 +269,8 @@ Dominant colors:
 ```
 
 ## Web 検出
+
+GCP ページ: [Web 検出](https://cloud.google.com/vision/docs/detecting-web?hl=ja)
 
 画像を Web で検索し、類似の画像を含む URL を返してくれます。
 
@@ -299,6 +313,15 @@ Web properties:
 ```
 
 ## 会社のロゴで全部やってみる
+
+GCP ページ: [ロゴ検出](https://cloud.google.com/vision/docs/detecting-logos?hl=ja)
+
+```go
+  client, err := vision.NewImageAnnotatorClient(ctx)
+  // anotations には ロゴ検出 が入っている
+  //func (c *ImageAnnotatorClient) DetectLogos(ctx context.Context, img *pb.Image, ictx *pb.ImageContext, opts ...gax.CallOption) ([]*pb.EntityAnnotation, error)
+  annotations, err := client.DetectLogos(ctx, image, nil)
+```
 
 ![matsurilogoofficial.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/e106f712-b173-ff07-d482-532e70c62553.png)
 
