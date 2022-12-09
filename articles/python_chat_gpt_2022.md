@@ -106,16 +106,16 @@ Python Package Index (PyPI)で公開されているChatGPT Pythonパッケージ
 だけど、ブラウザじゃないから最後のサンプルコードが見れないのが残念。
 他にも面白いツールがあったので、ご紹介します。
 
-## ChatGPT 関連ツール
+# ChatGPT 関連ツール
 
 ここからは、ChatGPT 関連のツールを紹介します。
 正直、よさげなツールは少ないです。
 でも開発の黎明期とはこういう感じなんだというのをひしひしと感じます。
 いろんな人が、いろんなアイデアをもとに自分の得意なソフトウェア開発を行っているので、是非ともチェックしてみてください。
 
-### CLI ツール
+## CLI ツール
 
-#### auto-commit
+## auto-commit
 
 https://github.com/m1guelpf/auto-commit
 
@@ -134,9 +134,9 @@ auto-commit
 
 ![auto-commit.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/1a7a8eac-77f1-29b6-2831-735aef86d5d3.gif)
 
-### Python ライブラリ
+## Python ライブラリ
 
-#### PyChatGPT
+## PyChatGPT
 
 https://github.com/rawandahmad698/PyChatGPT
 
@@ -146,7 +146,7 @@ https://github.com/rawandahmad698/PyChatGPT
 個人的に、好き。
 ただ、日本語だとちょっと使いづらいかもしれない。
 
-#### ChatGPT
+## ChatGPT
 
 https://github.com/acheong08/ChatGPT
 
@@ -156,9 +156,9 @@ https://github.com/acheong08/ChatGPT
 [PyChatGpt](https://github.com/rawandahmad698/PyChatGPT) と似ています。
 個人的には、[PyChatGpt](https://github.com/rawandahmad698/PyChatGPT)の方が使いやすいと思っているので、★3 つです。
 
-### Node.js ライブラリ
+## Node.js ライブラリ
 
-#### chatgpt-api
+## chatgpt-api
 
 https://github.com/transitive-bullshit/chatgpt-api
 
@@ -168,9 +168,9 @@ https://github.com/transitive-bullshit/chatgpt-api
 
 ![demo.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/051e02e5-e151-0e90-67c5-be5c423e6c46.gif)
 
-### Dart ライブラリ
+## Dart ライブラリ
 
-#### chatgpt_api_dart
+## chatgpt_api_dart
 
 https://github.com/MisterJimson/chatgpt_api_dart
 
@@ -178,9 +178,9 @@ https://github.com/MisterJimson/chatgpt_api_dart
 
 [chatg_api_dart](https://github.com/MisterJimson/chatgpt_api_dart) は、ChatGPT の Dart ライブラリ です。
 
-### VSCode 拡張機能
+## VSCode 拡張機能
 
-#### chatgpt-vscode
+## chatgpt-vscode
 
 https://github.com/mpociot/chatgpt-vscode
 
@@ -189,9 +189,9 @@ https://github.com/mpociot/chatgpt-vscode
 [chatgpt-vscode](https://github.com/mpociot/chatgpt-vscode) は、ChatGPT を VSCode で使えるようにしたものです。
 正直、あんまり...
 
-### Chrome 拡張機能
+## Chrome 拡張機能
 
-#### chat-gpt-google-extension
+## chat-gpt-google-extension
 
 https://github.com/wong2/chat-gpt-google-extension
 
@@ -199,9 +199,9 @@ https://github.com/wong2/chat-gpt-google-extension
 
 [chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) は、ChatGPT を Chrome Extension で使えるようにしたものです。
 
-### SNS ボット系
+## SNS ボット系
 
-#### wathsapp-gpt
+## wathsapp-gpt
 
 https://github.com/danielgross/whatsapp-gpt
 
@@ -211,7 +211,7 @@ https://github.com/danielgross/whatsapp-gpt
 
 Go 言語で書かれています。
 
-#### chatgpt-twitter-bot
+## chatgpt-twitter-bot
 
 https://github.com/transitive-bullshit/chatgpt-twitter-bot
 
@@ -220,7 +220,7 @@ https://github.com/transitive-bullshit/chatgpt-twitter-bot
 [chatgpt-twitter-bot](https://github.com/transitive-bullshit/chatgpt-twitter-bot) は、ChatGPT を Twitter Bot で使えるようにしたものです。
 普通に陰キャ ツイッタラー には向いていると思います。
 
-#### chatgpt-telegram-bot
+## chatgpt-telegram-bot
 
 [chatgpt-telegram-bot](https://github.com/franalgaba/chatgpt-telegram-bot-serverless) は、ChatGPT を Telegram Bot で使えるようにしたものです。
 
@@ -228,9 +228,9 @@ https://github.com/transitive-bullshit/chatgpt-twitter-bot
 
 ![chatgpt_animation_fast.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/7d26b93a-0730-f0fd-03c0-cad108697a4a.gif)
 
-### Excel, Google Docs など
+## Excel, Google Docs など
 
-#### docGPT
+## docGPT
 
 https://github.com/cesarhuret/docGPT
 
@@ -241,9 +241,9 @@ https://github.com/cesarhuret/docGPT
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/45cb6344-c090-d814-782b-dc19065343f9.png)
 
-### GitHub Actions
+## GitHub Actions
 
-#### chatgpt-action
+## chatgpt-action
 
 https://github.com/kxxt/chatgpt-action
 
@@ -264,9 +264,9 @@ In the diff, on line 6, the const keyword should be replaced with import in ...
 でも将来性はありそう。
 AWS Guru とかでも自動レビューは既に存在していますし
 
-### 話す系
+## 話す系
 
-#### chatgpt-conversation
+## chatgpt-conversation
 
 https://github.com/platelminto/chatgpt-conversation
 
@@ -276,9 +276,9 @@ https://github.com/platelminto/chatgpt-conversation
 
 この手のやつ、`stable Diffusion` とか出てきたとき `whisper` と組み合わせてみました！みたいな感じでたくさんあります。。。
 
-### デスクトップアプリ系
+## デスクトップアプリ系
 
-#### ChatGPT を tauri でデスクトップアプリ化したもの
+## ChatGPT を tauri でデスクトップアプリ化したもの
 
 https://github.com/lencx/ChatGPT
 
@@ -289,9 +289,9 @@ https://github.com/lencx/ChatGPT
 ここら辺になると、もう草という感じですね...
 ChatGPT 関係ないじゃん...
 
-### まとめ系
+## まとめ系
 
-#### awesome
+## awesome
 
 https://github.com/humanloop/awesome-chatgpt
 
@@ -305,15 +305,15 @@ https://github.com/f/awesome-chatgpt-prompts
 
 [awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) みたいなのもあって、ChatGPT にどのようにふるまって欲しいかの cook book みたいなのもあります。
 
-## ChatGPT 関連コミュニティ
+# ChatGPT 関連コミュニティ
 
-### Discord
+## Discord
 
 https://discord.com/invite/openai
 
 [Discord](https://discord.com/invite/openai) には、ChatGPT のコミュニティがあります。
 
-## まとめ
+# まとめ
 
 以前、PODCAST で Google や OpenAI などの AI 企業のエンジニアが話していたのですが、数年後には Google や OpenAI がチューニングしなくても、自分でチューニングできるようになると言っていました。
 そうなるといよいよ AI が人間を超える時代が来るのかもしれません。
