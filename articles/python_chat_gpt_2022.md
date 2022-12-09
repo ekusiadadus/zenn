@@ -115,7 +115,7 @@ Python Package Index (PyPI)で公開されているChatGPT Pythonパッケージ
 
 ## CLI ツール
 
-## auto-commit
+## auto-commit (★★★★☆)
 
 https://github.com/m1guelpf/auto-commit
 
@@ -136,7 +136,7 @@ auto-commit
 
 ## Python ライブラリ
 
-## PyChatGPT
+## PyChatGPT (★★★★☆)
 
 https://github.com/rawandahmad698/PyChatGPT
 
@@ -146,7 +146,7 @@ https://github.com/rawandahmad698/PyChatGPT
 個人的に、好き。
 ただ、日本語だとちょっと使いづらいかもしれない。
 
-## ChatGPT
+## ChatGPT (★★★☆☆)
 
 https://github.com/acheong08/ChatGPT
 
@@ -158,7 +158,7 @@ https://github.com/acheong08/ChatGPT
 
 ## Node.js ライブラリ
 
-## chatgpt-api
+## chatgpt-api (★★★☆☆)
 
 https://github.com/transitive-bullshit/chatgpt-api
 
@@ -170,7 +170,7 @@ https://github.com/transitive-bullshit/chatgpt-api
 
 ## Dart ライブラリ
 
-## chatgpt_api_dart
+## chatgpt_api_dart (★★★☆☆)
 
 https://github.com/MisterJimson/chatgpt_api_dart
 
@@ -180,7 +180,7 @@ https://github.com/MisterJimson/chatgpt_api_dart
 
 ## VSCode 拡張機能
 
-## chatgpt-vscode
+## chatgpt-vscode (★☆☆☆☆)
 
 https://github.com/mpociot/chatgpt-vscode
 
@@ -191,7 +191,7 @@ https://github.com/mpociot/chatgpt-vscode
 
 ## Chrome 拡張機能
 
-## chat-gpt-google-extension
+## chat-gpt-google-extension (★★☆☆☆)
 
 https://github.com/wong2/chat-gpt-google-extension
 
@@ -201,7 +201,7 @@ https://github.com/wong2/chat-gpt-google-extension
 
 ## SNS ボット系
 
-## wathsapp-gpt
+## wathsapp-gpt (★★☆☆☆)
 
 https://github.com/danielgross/whatsapp-gpt
 
@@ -211,7 +211,7 @@ https://github.com/danielgross/whatsapp-gpt
 
 Go 言語で書かれています。
 
-## chatgpt-twitter-bot
+## chatgpt-twitter-bot (★★☆☆☆)
 
 https://github.com/transitive-bullshit/chatgpt-twitter-bot
 
@@ -220,7 +220,7 @@ https://github.com/transitive-bullshit/chatgpt-twitter-bot
 [chatgpt-twitter-bot](https://github.com/transitive-bullshit/chatgpt-twitter-bot) は、ChatGPT を Twitter Bot で使えるようにしたものです。
 普通に陰キャ ツイッタラー には向いていると思います。
 
-## chatgpt-telegram-bot
+## chatgpt-telegram-bot (★★☆☆☆)
 
 [chatgpt-telegram-bot](https://github.com/franalgaba/chatgpt-telegram-bot-serverless) は、ChatGPT を Telegram Bot で使えるようにしたものです。
 
@@ -230,7 +230,7 @@ https://github.com/transitive-bullshit/chatgpt-twitter-bot
 
 ## Excel, Google Docs など
 
-## docGPT
+## docGPT (★★☆☆☆)
 
 https://github.com/cesarhuret/docGPT
 
@@ -243,7 +243,7 @@ https://github.com/cesarhuret/docGPT
 
 ## GitHub Actions
 
-## chatgpt-action
+## chatgpt-action (★★☆☆☆)
 
 https://github.com/kxxt/chatgpt-action
 
@@ -266,7 +266,7 @@ AWS Guru とかでも自動レビューは既に存在していますし
 
 ## 話す系
 
-## chatgpt-conversation
+## chatgpt-conversation (★★☆☆☆)
 
 https://github.com/platelminto/chatgpt-conversation
 
@@ -278,7 +278,7 @@ https://github.com/platelminto/chatgpt-conversation
 
 ## デスクトップアプリ系
 
-## ChatGPT を tauri でデスクトップアプリ化したもの
+## ChatGPT を tauri でデスクトップアプリ化したもの (草)
 
 https://github.com/lencx/ChatGPT
 
@@ -291,7 +291,7 @@ ChatGPT 関係ないじゃん...
 
 ## まとめ系
 
-## awesome
+## awesome (★★★★★)
 
 https://github.com/humanloop/awesome-chatgpt
 
