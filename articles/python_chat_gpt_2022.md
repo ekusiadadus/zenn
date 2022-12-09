@@ -1,3 +1,10 @@
+---
+title: 今話題の ChatGPT を Python でいい感じに使ってみよう！
+tags: Python, ChatGPT, GPT-3
+author: ekusiadadus
+slide: false
+---
+
 # 今話題の ChatGPT を Python でいい感じに使ってみよう！
 
 すでにご存知の方も多いと思いますが、ChatGPT は一世を風靡している強力な自然言語処理（NLP）ツールです。人間のようなテキストの生成から、チャットボットやバーチャルアシスタントの構築まで、幅広い用途で利用されています。
@@ -101,13 +108,20 @@ Python Package Index (PyPI)で公開されているChatGPT Pythonパッケージ
 
 ## ChatGPT 関連ツール
 
-### auto-commit
+ここからは、ChatGPT 関連のツールを紹介します。
+正直、よさげなツールは少ないです。
+でも開発の黎明期とはこういう感じなんだというのをひしひしと感じます。
+いろんな人が、いろんなアイデアをもとに自分の得意なソフトウェア開発を行っているので、是非ともチェックしてみてください。
+
+### CLI ツール
+
+#### auto-commit
 
 https://github.com/m1guelpf/auto-commit
 
-[auto-commit](https://github.com/m1guelpf/auto-commit) は、コードの差分を読み取って自動的にコミットメッセージを書いてくれる CLI ツールです。
+おすすめ度: ★★★★☆
 
-#### 使い方
+[auto-commit](https://github.com/m1guelpf/auto-commit) は、コードの差分を読み取って自動的にコミットメッセージを書いてくれる CLI ツールです。
 
 ```
 auto-commit
@@ -116,80 +130,172 @@ auto-commit
 これだけ。差分とかから、自動的にコミットメッセージを作ってくれます。
 ただ、コミットメッセージは英語です...
 あと conventional commit を守ってくれるときと、守ってくれないことがあるので、その辺は注意が必要です。
+★4 つです。
 
-### ChatGPT
+![auto-commit.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/1a7a8eac-77f1-29b6-2831-735aef86d5d3.gif)
+
+### Python ライブラリ
+
+#### PyChatGPT
+
+https://github.com/rawandahmad698/PyChatGPT
+
+おすすめ度: ★★★★☆
+
+上でも紹介したパッケージ。
+個人的に、好き。
+ただ、日本語だとちょっと使いづらいかもしれない。
+
+#### ChatGPT
 
 https://github.com/acheong08/ChatGPT
 
+おすすめ度: ★★★☆☆
+
 [ChatGPT](https://github.com/acheong08/ChatGPT) は、ChatGPT を Python で使えるようにしたライブラリです。
 [PyChatGpt](https://github.com/rawandahmad698/PyChatGPT) と似ています。
-個人的には、[PyChatGpt](https://github.com/rawandahmad698/PyChatGPT)の方が使いやすいと思っています。
+個人的には、[PyChatGpt](https://github.com/rawandahmad698/PyChatGPT)の方が使いやすいと思っているので、★3 つです。
 
-### chatgpt-api
+### Node.js ライブラリ
+
+#### chatgpt-api
 
 https://github.com/transitive-bullshit/chatgpt-api
 
+おすすめ度: ★★★☆☆
+
 [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api) は、ChatGPT の Node.js ライブラリ です。
 
-### chatgpt_api_dart
+![demo.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/051e02e5-e151-0e90-67c5-be5c423e6c46.gif)
+
+### Dart ライブラリ
+
+#### chatgpt_api_dart
 
 https://github.com/MisterJimson/chatgpt_api_dart
 
+おすすめ度: ★★★☆☆
+
 [chatg_api_dart](https://github.com/MisterJimson/chatgpt_api_dart) は、ChatGPT の Dart ライブラリ です。
 
-### chat-gpt-google-extension
+### VSCode 拡張機能
+
+#### chatgpt-vscode
+
+https://github.com/mpociot/chatgpt-vscode
+
+おすすめ度: ★☆☆☆☆
+
+[chatgpt-vscode](https://github.com/mpociot/chatgpt-vscode) は、ChatGPT を VSCode で使えるようにしたものです。
+正直、あんまり...
+
+### Chrome 拡張機能
+
+#### chat-gpt-google-extension
 
 https://github.com/wong2/chat-gpt-google-extension
 
+おすすめ度: ★★☆☆☆
+
 [chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension) は、ChatGPT を Chrome Extension で使えるようにしたものです。
 
-### wathsapp-gpt
+### SNS ボット系
+
+#### wathsapp-gpt
 
 https://github.com/danielgross/whatsapp-gpt
+
+おすすめ度: ★★☆☆☆
 
 [wathsapp-gpt](https://github.com/danielgross/whatsapp-gpt) は、ChatGPT を WhatsApp で使えるようにしたものです。
 
 Go 言語で書かれています。
 
-### chatgpt-vscode
-
-https://github.com/mpociot/chatgpt-vscode
-
-[chatgpt-vscode](https://github.com/mpociot/chatgpt-vscode) は、ChatGPT を VSCode で使えるようにしたものです。
-正直、あんまり...
-
-### chatgpt-twitter-bot
+#### chatgpt-twitter-bot
 
 https://github.com/transitive-bullshit/chatgpt-twitter-bot
 
-[chatgpt-twitter-bot](https://github.com/transitive-bullshit/chatgpt-twitter-bot) は、ChatGPT を Twitter Bot で使えるようにしたものです。
+おすすめ度: ★★★☆☆
 
-### docGPT
+[chatgpt-twitter-bot](https://github.com/transitive-bullshit/chatgpt-twitter-bot) は、ChatGPT を Twitter Bot で使えるようにしたものです。
+普通に陰キャ ツイッタラー には向いていると思います。
+
+#### chatgpt-telegram-bot
+
+[chatgpt-telegram-bot](https://github.com/franalgaba/chatgpt-telegram-bot-serverless) は、ChatGPT を Telegram Bot で使えるようにしたものです。
+
+おすすめ度: ★★☆☆☆
+
+![chatgpt_animation_fast.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/7d26b93a-0730-f0fd-03c0-cad108697a4a.gif)
+
+### Excel, Google Docs など
+
+#### docGPT
 
 https://github.com/cesarhuret/docGPT
+
+おすすめ度: ★★☆☆☆
 
 [docGPT](https://github.com/cesarhuret/docGPT) は、ChatGPT を Google Docs で使えるようにしたものです。
 一応、Excel からでも ChatGPT 呼べるように作ってあるらしい。
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/45cb6344-c090-d814-782b-dc19065343f9.png)
 
-### chatgpt-action
+### GitHub Actions
+
+#### chatgpt-action
 
 https://github.com/kxxt/chatgpt-action
 
+おすすめ度: ★★☆☆☆
+
 [chatgpt-action](https://github.com/kxxt/chatgpt-action) は、ChatGPT を GitHub Actions で使えるようにしたものです。
 
-### chatgpt-conversation
+正直わかりづらい...
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/05b70879-6d7a-3abd-a27e-75a57f41e466.png)
+
+```
+This pull request introduces several syntax errors.
+In the diff, on line 6, the const keyword should be replaced with import in ...
+```
+
+上みたいにレビューしてくれるのですが、ちょっとわかりづらい...
+でも将来性はありそう。
+AWS Guru とかでも自動レビューは既に存在していますし
+
+### 話す系
+
+#### chatgpt-conversation
 
 https://github.com/platelminto/chatgpt-conversation
+
+おすすめ度: ★★☆☆☆
 
 [chatgpt-conversation](https://github.com/platelminto/chatgpt-conversation) は、話す感覚で使えるようにしたものです。
 
 この手のやつ、`stable Diffusion` とか出てきたとき `whisper` と組み合わせてみました！みたいな感じでたくさんあります。。。
 
-### awesome
+### デスクトップアプリ系
+
+#### ChatGPT を tauri でデスクトップアプリ化したもの
+
+https://github.com/lencx/ChatGPT
+
+おすすめ度: ★☆☆☆☆
+
+[ChatGPT を tauri でデスクトップアプリ化したもの](https://github.com/lencx/ChatGPT) は、ChatGPT をデスクトップアプリ化したものです。
+
+ここら辺になると、もう草という感じですね...
+ChatGPT 関係ないじゃん...
+
+### まとめ系
+
+#### awesome
 
 https://github.com/humanloop/awesome-chatgpt
+
+おすすめ度: ★★★★★
 
 [awesome](https://github.com/humanloop/awesome-chatgpt) は、ChatGPT に関するリポジトリのリストです。
 
@@ -206,3 +312,10 @@ https://github.com/f/awesome-chatgpt-prompts
 https://discord.com/invite/openai
 
 [Discord](https://discord.com/invite/openai) には、ChatGPT のコミュニティがあります。
+
+## まとめ
+
+以前、PODCAST で Google や OpenAI などの AI 企業のエンジニアが話していたのですが、数年後には Google や OpenAI がチューニングしなくても、自分でチューニングできるようになると言っていました。
+そうなるといよいよ AI が人間を超える時代が来るのかもしれません。
+
+自分は 5 年後には自分の仕事がなくなればいいのになと思っています。
