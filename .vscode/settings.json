@@ -1,9 +1,19 @@
 {
-    "audioCues.volume": 0,
-    "audioCues.lineHasBreakpoint": "off",
-    "audioCues.lineHasError": "off",
-    "audioCues.lineHasFoldedArea": "off",
-    "audioCues.lineHasInlineSuggestion": "off",
-    "audioCues.noInlayHints": "off",
-    "audioCues.onDebugBreak": "off"
+  "audioCues.volume": 0,
+  "audioCues.lineHasBreakpoint": "off",
+  "audioCues.lineHasError": "off",
+  "audioCues.lineHasFoldedArea": "off",
+  "audioCues.lineHasInlineSuggestion": "off",
+  "audioCues.noInlayHints": "off",
+  "audioCues.onDebugBreak": "off",
+  "files.associations": {
+    "algorithm": "cpp",
+    "*.tcc": "cpp",
+    "bitset": "cpp",
+    "fstream": "cpp",
+    "memory": "cpp",
+    "new": "cpp",
+    "numeric": "cpp",
+    "system_error": "cpp"
+  }
 }
