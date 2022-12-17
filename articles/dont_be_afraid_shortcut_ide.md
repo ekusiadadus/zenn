@@ -1,5 +1,5 @@
 ---
-title: "Goland, Clion, PyCharm おすすめプラグインとショートカットまとめ"
+title: "IDEショートカットは怖くない"
 type: "tech" # tech: 技術記事 / idea: アイデア記事
 topics: ["goland", "CLion", "Pycharm", "IntelliJ", "VSCode"] # タグ。["markdown", "rust", "aws"]のように指定する
 published: true # 公開設定（falseにすると下書き）
