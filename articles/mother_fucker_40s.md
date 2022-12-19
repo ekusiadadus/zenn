@@ -12,7 +12,8 @@ published: true # 公開設定（falseにすると下書き）
 うちの GitHub Copilot の口が悪すぎると話題に！
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/1aa7b376-a5b8-c079-aabc-bbb2a285e439.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/1aa7b376-a5b8-c079-aabc-bbb2a285e439.png">
+
+<img width="400" alt="うちの GitHub Copilot の口が悪すぎると話題に！" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/1aa7b376-a5b8-c079-aabc-bbb2a285e439.png">
 
 さて、今日は Whisper + Stable Diffusion で永遠の謎『おっさん美少女』を AI に描いて頂こうと思います。
 髪の毛は永遠の 0 です。
@@ -39,14 +40,15 @@ YouTube のコードは、GitHub 上に公開されいるのですが手順を�
 2. ローカルで動かすと GPU が足りない
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/51950ef1-c8d0-7216-e063-9311438979c6.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/51950ef1-c8d0-7216-e063-9311438979c6.png">
+<img width="400" alt="ローカルで動かすと GPU が足りない" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/51950ef1-c8d0-7216-e063-9311438979c6.png">
 
 そもそも GPU が足りないので、ローカルで動かすことはできませんでした。
 
 しかし、学習サイズ "medium" や "small" くらいに落とすと動きました。
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/dc648757-148f-3042-db61-a29a6a8e58fa.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/dc648757-148f-3042-db61-a29a6a8e58fa.png">
+
+<img width="400" alt="学習サイズ medium や small くらいに落とすと動きました。" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/dc648757-148f-3042-db61-a29a6a8e58fa.png">
 
 3. ui.py が動かない
 
@@ -54,12 +56,11 @@ YouTube のコードは、GitHub 上に公開されいるのですが手順を�
 基本的にコードはすべて動きません。
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/8ad53202-9a73-3d05-4cc0-5f48e3a38bda.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/8ad53202-9a73-3d05-4cc0-5f48e3a38bda.png">
-
-</br>
+<img width="400" alt="基本的にコードはすべて動きません。" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/8ad53202-9a73-3d05-4cc0-5f48e3a38bda.png">
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/5b83df5f-c3d3-9b04-183b-ba318f5c0654.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/5b83df5f-c3d3-9b04-183b-ba318f5c0654.png">
+
+<img width="400" alt="ここまでくるとボロボロです。" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/5b83df5f-c3d3-9b04-183b-ba318f5c0654.png">
 
 録音したファイルがなぜかグローバルに入っていることになっている...?
 ここら辺は、`ffmpeg` 周りのライブラリ問題みたい...
@@ -86,34 +87,34 @@ Whisper の制度はかなり高いです。(漢字は描いての方を想定�
 `おっさん美少女を書いて` <-> ` Drawing a middle-aged man and a beautiful girl` という感じです。
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/facda939-e23c-36d0-f927-c64c8d1396e1.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/facda939-e23c-36d0-f927-c64c8d1396e1.png">
+<img width="400" alt="(代替品)おっさん美少女 1-1" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/facda939-e23c-36d0-f927-c64c8d1396e1.png">
 
 無理やり英語を直しても、ダメそうです。
 モデルを変えないといけません。
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/3b5fbadc-e610-ce50-ece9-93bdef41d2ce.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/3b5fbadc-e610-ce50-ece9-93bdef41d2ce.png">
+<img width="400" alt="(代替品)おっさん美少女 1-2" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/3b5fbadc-e610-ce50-ece9-93bdef41d2ce.png">
 
 ## (代替品)おっさん美少女 2 (waifu diffusion)
 
 https://huggingface.co/hakurei/waifu-diffusion?text=%E3%81%8A%E3%81%A3%E3%81%95%E3%82%93%E7%BE%8E%E5%B0%91%E5%A5%B3
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/5a12df6e-d4a0-2f28-4acb-c1a716cce5b7.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/5a12df6e-d4a0-2f28-4acb-c1a716cce5b7.png">
+<img width="400" alt="(代替品)おっさん美少女 2" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/5a12df6e-d4a0-2f28-4acb-c1a716cce5b7.png">
 
 ## (代替品)おっさん美少女 3 (stable diffusion v1.5)
 
 https://huggingface.co/runwayml/stable-diffusion-v1-5?text=%E3%81%8A%E3%81%A3%E3%81%95%E3%82%93%E7%BE%8E%E5%B0%91%E5%A5%B3
 
 <!-- ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/670c04f2-18f6-439a-5717-749563362a8d.png) -->
-<img width="400" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/670c04f2-18f6-439a-5717-749563362a8d.png">
+<img width="400" alt="(代替品)おっさん美少女 3" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/670c04f2-18f6-439a-5717-749563362a8d.png">
 
 ## (代替品)おっさん美少女 3 (stable diffusion v2.1)
 
 https://huggingface.co/spaces/stabilityai/stable-diffusion
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/cabe85c7-b594-327b-f8e1-05e8c87f186f.png)
-<img width="400" src=
+<img width="400" alt="(代替品)おっさん美少女 3 (stable diffusion v2.1)" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/cabe85c7-b594-327b-f8e1-05e8c87f186f.png">
 
 ## 見ると幸せになれるところ
 
