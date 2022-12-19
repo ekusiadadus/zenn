@@ -1,3 +1,13 @@
+---
+title: "『おっさん美少女を描いて！』を；実現したい！"
+emoji: "🍇" # アイキャッチとして使われる絵文字（1文字だけ）
+type: "tech" # tech: 技術記事 / idea: アイデア記事
+topics: [
+"Python",
+"機械学習","whisper","StableDiffusion","ChatGPT"] # タグ。["markdown", "rust", "aws"]のように指定する
+published: true # 公開設定（falseにすると下書き）
+---
+
 どうも、おっさんです。
 うちの GitHub Copilot の口が悪すぎると話題に！
 
