@@ -1,3 +1,15 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: "WSL2 でホットリロードが効かない問題の解決方法"
+pubDate: 2022-02-01
+description: "WSL2 でホットリロードが効かない問題の解決方法"
+author: "@ekusiadadus"
+image:
+  url: "https://avatars.githubusercontent.com/u/70436490?s=400&u=a714da7802c65046265c6848887eecddfc58b5c0&v=4"
+  alt: "WSL2 でホットリロードが効かない問題の解決方法"
+tags: ["wsl2", "hot-reload", "windows", "yarn", "node.js"]
+---
+
 # WSL2 でホットリロードが効かない問題の解決方法
 
 先日から、WSL2 でホットリロードが効かない問題が発生していました。
