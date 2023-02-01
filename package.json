@@ -1,0 +1,23 @@
+{
+  "name": "zenn",
+  "version": "1.0.0",
+  "description": "This repository is collections of my posts on zenn.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekusiadadus/zenn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekusiadadus/zenn/issues"
+  },
+  "homepage": "https://github.com/ekusiadadus/zenn#readme",
+  "dependencies": {
+    "zenn-cli": "^0.1.137"
+  }
+}
