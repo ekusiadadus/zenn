@@ -1,9 +1,17 @@
-# Go, Node, Rust, Zig: A Benchmark
+---
+title: "Bun, Deno, Go, Node, Rust, Zig: A Benchmark" # 記事のタイトル
+type: "tech" # tech: 技術記事 / idea: アイデア記事
+topics: ["Go", "Node", "Rust", "Zig", "Deno", "Bun"] # タグ。["markdown", "rust", "aws"]のように指定する
+published: true # 公開設定（falseにすると下書き）
+---
+
+# Bun, Deno, Go, Node, Rust, Zig: A Benchmark
 
 ## イントロ
 
 vim-jp slack の #lang-go で、Go vs Node が土日に繰り広げられていました(月曜日気づいた)。
-mattn さんが、Go と Node の速度を比較するベンチマークを書いていたので、それを Rust と Zig で書いてみました。
+mattn さんが、Go と Node の速度を比較するベンチマークを書いていたので、それを bun, deno, go, node, rust, zig で書いてみました。
+(zig わからないので未完成です 🙇)
 
 ## ベンチマーク
 
@@ -20,12 +28,12 @@ mattn さんが、Go と Node の速度を比較するベンチマークを書�
 
 Go >> Deno > Rust > bun > Node という結果になりました。
 
-## 注意
+## **注意**
 
-この計測は、特定の言語やフレームワークを批判するものではないです。
-それぞれの言語やフレームワークには、それぞれの良いところ、悪いところがあります。
-
-## 参考
+**この計測は、特定の言語やフレームワークを批判するものではないです。
+それぞれの言語やフレームワークには、それぞれの良いところ、悪いところがあると思っています。
+また、計測方法や各言語の最適化ができていないと思います。
+間違いがあったときは申し訳ございません。**
 
 ## ベンチマークの実行
 
@@ -160,4 +168,55 @@ export default {
     return new Response("Hello World");
   },
 };
+```
+
+### Makefile
+
+```makefile
+.phony:
+
+build-go:
+	go build go/main.go && ./main
+
+build-rust:
+	rustc rust/main.rs && ./main
+
+build-zig:
+	zig build-exe zig/main.zig && ./main
+
+run-go:
+	go run go/main.go
+
+run-node:
+	node node/main.js
+
+run-bun:
+	bun run bun/main.ts
+
+run-deno:
+	deno run --allow-net deno/main.ts
+
+bench:
+	ab -k -c 10 -n 10000 http://127.0.0.1:3000/
+
+bench-go:
+	ab -k -c 10 -n 10000 http://127.0.0.1:3000/ > bench/go.txt
+
+bench-rust:
+	ab -k -c 10 -n 10000 http://127.0.0.1:3000/ > bench/rust.txt
+
+bench-node:
+	ab -k -c 10 -n 10000 http://127.0.0.1:3000/ > bench/node.txt
+
+bench-bun:
+	ab -k -c 10 -n 10000 http://127.0.0.1:3000/ > bench/bun.txt
+
+bench-deno:
+	ab -k -c 10 -n 10000 http://127.0.0.1:3000/ > bench/deno.txt
+
+bench-zig:
+	ab -k -c 10 -n 10000 http://127.0.0.1:3000/ > bench/zig.txt
+
+check-port:
+	echo 'sudo lsof -i :3000'
 ```
