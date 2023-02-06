@@ -26,7 +26,7 @@ mattn さんが、Go と Node の速度を比較するベンチマークを書�
 
 ということで、**Go が一番速い**です。
 
-Go >> Deno > Rust > bun > Node という結果になりました。
+Go >> Deno > Rust > Bun > Node という結果になりました。
 
 ## **注意**
 
@@ -158,7 +158,7 @@ async function serveHttp(conn: Deno.Conn) {
 }
 ```
 
-### bun
+### Bun
 
 ```ts
 // TypeScript: http.ts
