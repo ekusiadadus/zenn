@@ -13,6 +13,8 @@ vim-jp slack の #lang-go で、Go vs Node が土日に繰り広げられてい�
 mattn さんが、Go と Node の速度を比較するベンチマークを書いていたので、それを bun, deno, go, node, rust, zig で書いてみました。
 (zig わからないので未完成です 🙇)
 
+https://github.com/ekusiadadus/bench-web-server
+
 ## ベンチマーク
 
 | Language | Requests per second     | Time per request  |
