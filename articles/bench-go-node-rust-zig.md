@@ -43,10 +43,11 @@ https://github.com/codesenberg/bombardier
 | rust                | 36398.10     | 271.31us    |
 | rust (release)      | 36390.67     | 271.66us    |
 | rust (multi-thread) | 36014.16     | 274.18us    |
+| hyper               | 75011.92     | 131.11us    |
 | zig                 | **未測定**   | **未測定**  |
 
 このベンチマークだと、
-Bun > Go > Deno > Rust > Node になりました
+Bun > hyper > Go > Deno > Rust > Node になりました
 
 ## **注意**
 
