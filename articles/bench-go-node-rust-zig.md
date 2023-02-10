@@ -7,8 +7,6 @@ published: true # 公開設定（falseにすると下書き）
 
 # Bun, Deno, Go, Node, Rust, Zig: A Benchmark
 
-## イントロ
-
 vim-jp slack の #lang-go で、Go vs Node が土日に繰り広げられていました(月曜日気づいた)。
 mattn さんが、Go と Node の速度を比較するベンチマークを書いていたので、それを bun, deno, go, node, rust, zig で書いてみました。
 (zig わからないので未完成です 🙇)
@@ -29,6 +27,26 @@ https://github.com/ekusiadadus/bench-web-server
 ということで、**Go が一番速い**です。
 
 Go >> Deno > Rust > Bun > Node という結果になりました。
+
+### Bombardier (追記)
+
+[Zenn](https://zenn.dev/ekusiadadus/articles/bench-go-node-rust-zig) にも投稿したら、別のベンチマーカーを教えていただいたので試しました
+
+https://github.com/codesenberg/bombardier
+
+| Language            | Reqs/sec Avg | Latency Avg |
+| :------------------ | :----------- | :---------- |
+| bun                 | 87817.82     | 111.74us    |
+| deno                | 39247.26     | 252.97us    |
+| go                  | 59071.51     | 166.08us    |
+| node                | 17808.81     | 567.93us    |
+| rust                | 36398.10     | 271.31us    |
+| rust (release)      | 36390.67     | 271.66us    |
+| rust (multi-thread) | 36014.16     | 274.18us    |
+| zig                 | **未測定**   | **未測定**  |
+
+このベンチマークだと、
+Bun > Go > Deno > Rust > Node になりました
 
 ## **注意**
 
