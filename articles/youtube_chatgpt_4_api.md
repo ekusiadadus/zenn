@@ -11,6 +11,14 @@ published: true # 公開設定（falseにすると下書き）
 
 https://www.youtube.com/watch?v=MZAiNbJxatM
 
+API 部分
+
+https://github.com/ekusiadadus/youtube-gpt-4-api
+
+GPT-4 に作ってもらった Discord BOT
+
+https://github.com/ekusiadadus/youtube-discord-gpt-4-bot
+
 ## GPT-4 API が解放された！
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/81d6bd3e-03f2-c3bc-17e2-185f4d35f1f7.png)
