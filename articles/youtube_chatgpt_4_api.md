@@ -9,7 +9,7 @@ published: true # 公開設定（falseにすると下書き）
 
 # 【ChatGPT+Python】GPT-4 API を最速レビュー
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MZAiNbJxatM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+https://www.youtube.com/watch?v=MZAiNbJxatM
 
 ## GPT-4 API が解放された！
 
@@ -72,7 +72,7 @@ with open(f"output-{model_name}-{datetime.now().strftime('%Y%m%dT%H%M%S')}-{ques
 
 ## Slack に組み込む (TypeScript + Cloudflare Workers)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MZAiNbJxatM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+https://www.youtube.com/watch?v=MZAiNbJxatM
 
 上でどんな感じなのか見せています。
 
