@@ -92,6 +92,12 @@ GPT-4 でまともに回答が時間内に生成されるのは、詩を作っ�
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/08435cbb-6557-d185-6220-66f39fdcf452.png)
 
+### Cloudflare Workers 周り
+
+エッジサーバーで動かしてこんな感じ
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/1fdd0a37-2634-34ad-a94c-ea95cecccafd.png)
+
 ## Discord BOT を作って
 
 1 のコードをもとに、ChatGPT に作ってもらった回答を載せます。
