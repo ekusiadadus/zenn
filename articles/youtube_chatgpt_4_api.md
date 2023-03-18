@@ -1,5 +1,5 @@
 ---
-title: "【ChatGPT+Python】GPT-4 API を最速レビュー"
+title: "【ChatGPT+Python】GPT-4 API を爆速レビュー"
 type: "tech" # tech: 技術記事 / idea: アイデア記事
 topics: [
 "Python",
@@ -7,7 +7,7 @@ topics: [
 published: true # 公開設定（falseにすると下書き）
 ---
 
-# 【ChatGPT+Python】GPT-4 API を最速レビュー
+# 【ChatGPT+Python】GPT-4 API を爆速レビュー
 
 https://www.youtube.com/watch?v=MZAiNbJxatM
 
