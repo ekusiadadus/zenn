@@ -1,11 +1,11 @@
 ---
-title: "将棋 UI ライブラリを Vite.js で作ってみた！ - with ChatGPT -" # 記事のタイトル
+title: "将棋 UI ライブラリを Viteで作ってみた！ - with ChatGPT -" # 記事のタイトル
 type: "tech" # tech: 技術記事 / idea: アイデア記事
 topics: ["npm", "TypeScript", "ChatGPT", "Vite", "将棋"] # タグ。["markdown", "rust", "aws"]のように指定する
 published: true # 公開設定（falseにすると下書き）
 ---
 
-# 将棋 UI ライブラリを Vite.js で作ってみた！ - with ChatGPT -
+# 将棋 UI ライブラリを Vite で作ってみた！ - with ChatGPT -
 
 ![react-shogi1.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905557/ca2151c9-5e3d-86a8-914e-f6e09ee2114b.gif)
 
