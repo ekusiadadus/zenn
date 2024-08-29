@@ -31,8 +31,7 @@ slide: false
 
 Vercel 製の satori を選択し、sharp は画像処理に使用します。フォントは Google Font API を利用します。
 
-<details>
-<summary>画像生成コード（全体）</summary>
+画像生成コード（全体）
 
 ```typescript
 // src/lib/generateOGPImage.ts
@@ -134,14 +133,11 @@ export const generateOgpImage = async (
 };
 ```
 
-</details>
-
 ## 2. 画像生成 API の作成
 
 `/posts/ogp/[title].png` というパスで API を準備します。Twitter と Facebook で推奨サイズが異なるため、`/ogp/small/[title].png` と `/ogp/large/[title].png` のように分けるのも良いでしょう。
 
-<details>
-<summary>画像生成API（全体）</summary>
+画像生成 API（全体）
 
 ```typescript
 // src/routes/posts/ogp/[title].png/+server.ts
@@ -166,14 +162,11 @@ export const GET: RequestHandler = async ({ params }) => {
 };
 ```
 
-</details>
-
 ## 3. 各コンテンツの OGP として設定
 
 SvelteKit で各コンテンツに OGP を設定するには、`<svelte:head>` を使用します。
 
-<details>
-<summary>OGP設定コード</summary>
+OGP 設定コード
 
 ```svelte
 <svelte:head>
@@ -235,8 +228,6 @@ SvelteKit で各コンテンツに OGP を設定するには、`<svelte:head>` �
   <meta name="twitter:description" content="{data.post.content}" />
 </svelte:head>
 ```
-
-</details>
 
 ## パフォーマンス
 
