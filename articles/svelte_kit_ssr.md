@@ -1,26 +1,40 @@
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/ba18eb85-4fb0-490b-ae27-7d8dd81cbfdc/f7253231-b578-4ad6-bd1e-76d0e6cd52a4/image.png)
+---
+title: SvelteKit で OGP 画像を自動生成する
+tags: SvelteKit, OGP, Satori, Sharp, Google Font API
+author: ekusiadadus
+slide: false
+---
 
-## ブログサイトやナレッジサイトで、URL から自動で OGP と画像を生成して欲しい
+# SvelteKit で OGP 画像を自動生成する
 
-最近、[ビジネスアイデアラボ](https://new-giants.breakai.ai) というアプリを作りました。
+![OGP Image](/images/sveltekit_ogp.png)
 
-そこでは起業家秘話やユーザーが作成したアイデアが公開されています。ポストとして一つ一つに URL が振られていて、内容はそれぞれ異なります。
+## はじめに
 
-そのポストを Facebook, X とか 外部のサイトに公開したいときに、その内容に基づいた画像が OGP として入っていたら嬉しいです。
+最近、[ビジネスアイデアラボ](https://new-giants.breakai.ai) というアプリを作りました。このアプリでは、AI がアイデアを評価したり、市場調査・競合調査をしてくれます。各ポストにはユニークな URL が振られており、内容も異なります。これらのポストを Facebook や X などの外部サイトに公開する際に、内容に基づいた OGP（Open Graph Protocol）画像があれば理想的です。
 
-しかし、ポスト一つ一つに静的な画像を作成するのは手間がかかりますし、自動でやってほしいですよね
+しかし、ポスト毎に静的な画像を作成するのは手間がかかります。そこで、自動で OGP 画像を生成する方法を探りました。この記事では、SvelteKit で OGP 画像を自動生成する方法について解説します。
 
-今回は、SvelteKit で OGP 画像を自動生成する方法を書きます。
+## 画像生成の流れ
 
-## 画像生成ライブラリ
+1. 画像生成コードの作成
+2. 画像生成 API の作成
+3. 各コンテンツの OGP として設定
+
+## 1. 画像生成コードの作成
+
+画像生成には以下のライブラリを使用します：
 
 - satori
 - sharp
-- google font api
+- Google Font API
 
-画像生成コード
+Vercel 製の satori を選択し、sharp は画像処理に使用します。フォントは Google Font API を利用します。
 
-```tsx
+<details>
+<summary>画像生成コード（全体）</summary>
+
+```typescript
 // src/lib/generateOGPImage.ts
 import satori, { type SatoriOptions } from "satori";
 import sharp from "sharp";
@@ -120,9 +134,16 @@ export const generateOgpImage = async (
 };
 ```
 
-## 画像自動生成 API
+</details>
 
-```tsx
+## 2. 画像生成 API の作成
+
+`/posts/ogp/[title].png` というパスで API を準備します。Twitter と Facebook で推奨サイズが異なるため、`/ogp/small/[title].png` と `/ogp/large/[title].png` のように分けるのも良いでしょう。
+
+<details>
+<summary>画像生成API（全体）</summary>
+
+```typescript
 // src/routes/posts/ogp/[title].png/+server.ts
 import { generateOgpImage } from "$lib/generateOgpImage";
 import type { RequestHandler } from "@sveltejs/kit";
@@ -145,86 +166,92 @@ export const GET: RequestHandler = async ({ params }) => {
 };
 ```
 
-## 各コンテンツの OGP として設定する
+</details>
 
-```tsx
-// src/routes//posts/[id]/+page.svelte
+## 3. 各コンテンツの OGP として設定
+
+SvelteKit で各コンテンツに OGP を設定するには、`<svelte:head>` を使用します。
+
+<details>
+<summary>OGP設定コード</summary>
+
+```svelte
 <svelte:head>
-	<title>{data.post.title} | {$LL.POSTPAGE.SITE_TITLE({ title: data.post.title })}</title>
-	<meta name="description" content={data.post.content} />
+  <title>
+    {data.post.title} | {$LL.POSTPAGE.SITE_TITLE({ title: data.post.title })}
+  </title>
+  <meta name="description" content="{data.post.content}" />
 
-	<!-- Open Graph / Facebook -->
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content={`https://new-giants.breakai.ai/posts/${data.post.id}`} />
-	<meta property="og:title" content={data.post.title} />
-	<meta property="og:description" content={data.post.content} />
-	<meta
-		property="og:image"
-		content={`https://new-giants.breakai.ai/posts/ogp/large/${encodeURIComponent(data.post.title ?? 'breakai')}.png`}
-	/>
-	<meta property="og:image:alt" content={data.post.title} />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url"
+  content={`https://new-giants.breakai.ai/posts/${data.post.id}`} />
+  <meta property="og:title" content="{data.post.title}" />
+  <meta property="og:description" content="{data.post.content}" />
+  <meta property="og:image"
+  content={`https://new-giants.breakai.ai/posts/ogp/large/${encodeURIComponent(data.post.title
+  ?? 'breakai')}.png`} />
+  <meta property="og:image:alt" content="{data.post.title}" />
 
-	<!-- Open Graph / Facebook - Multiple image sizes -->
-	<meta
-		property="og:image"
-		content="https://new-giants.breakai.ai/posts/ogp/large/${encodeURIComponent(
+  <!-- Open Graph / Facebook - Multiple image sizes -->
+  <meta
+    property="og:image"
+    content="https://new-giants.breakai.ai/posts/ogp/large/${encodeURIComponent(
 			data.post.title ?? 'breakai'
 		)}.png"
-	/>
-	<meta property="og:image:width" content="1423" />
-	<meta property="og:image:height" content="771" />
-	<meta
-		property="og:image"
-		content="https://new-giants.breakai.ai/posts/ogp/small/${encodeURIComponent(
+  />
+  <meta property="og:image:width" content="1423" />
+  <meta property="og:image:height" content="771" />
+  <meta
+    property="og:image"
+    content="https://new-giants.breakai.ai/posts/ogp/small/${encodeURIComponent(
 			data.post.title ?? 'breakai'
 		)}.png"
-	/>
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" />
+  />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-	<!-- Twitter -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:site" content={$LL.META.TWITTER_CREATOR()} />
-	<meta name="twitter:creator" content={$LL.META.TWITTER_CREATOR()} />
-	<meta name="twitter:title" content={data.post.title} />
-	<meta name="twitter:description" content={data.post.content} />
-	<meta
-		name="twitter:image"
-		content={`https://new-giants.breakai.ai/posts/ogp/large/${encodeURIComponent(data.post.title ?? 'breakai')}.png`}
-	/>
-	<meta name="twitter:image:width" content="1423" />
-	<meta name="twitter:image:height" content="771" />
-	<meta
-		name="twitter:image"
-		content={`https://new-giants.breakai.ai/posts/ogp/small/${encodeURIComponent(data.post.title ?? 'breakai')}.png`}
-	/>
-	<meta name="twitter:image:width" content="1200" />
-	<meta name="twitter:image:height" content="630" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="{$LL.META.TWITTER_CREATOR()}" />
+  <meta name="twitter:creator" content="{$LL.META.TWITTER_CREATOR()}" />
+  <meta name="twitter:title" content="{data.post.title}" />
+  <meta name="twitter:description" content="{data.post.content}" />
+  <meta name="twitter:image"
+  content={`https://new-giants.breakai.ai/posts/ogp/large/${encodeURIComponent(data.post.title
+  ?? 'breakai')}.png`} />
+  <meta name="twitter:image:width" content="1423" />
+  <meta name="twitter:image:height" content="771" />
+  <meta name="twitter:image"
+  content={`https://new-giants.breakai.ai/posts/ogp/small/${encodeURIComponent(data.post.title
+  ?? 'breakai')}.png`} />
+  <meta name="twitter:image:width" content="1200" />
+  <meta name="twitter:image:height" content="630" />
 
-	<meta name="twitter:card" content={$LL.META.TWITTER_CARD()} />
-	<meta name="twitter:site" content={$LL.META.TWITTER_CREATOR()} />
-	<meta name="twitter:creator" content={$LL.META.TWITTER_CREATOR()} />
-	<meta name="twitter:title" content={data.post.title} />
-	<meta name="twitter:description" content={data.post.content} />
+  <meta name="twitter:card" content="{$LL.META.TWITTER_CARD()}" />
+  <meta name="twitter:site" content="{$LL.META.TWITTER_CREATOR()}" />
+  <meta name="twitter:creator" content="{$LL.META.TWITTER_CREATOR()}" />
+  <meta name="twitter:title" content="{data.post.title}" />
+  <meta name="twitter:description" content="{data.post.content}" />
 </svelte:head>
 ```
 
+</details>
+
 ## パフォーマンス
 
-Vercel 上にデプロイしていて、大体 1-2 秒程度かかります
-
-一度生成した画像は、キャッシュするとかしたほうが良さげですね
+Vercel 上にデプロイした場合、画像生成に 1-2 秒程度かかります。パフォーマンス向上のために、一度生成した画像をキャッシュすることをおすすめします。
 
 ```bash
-󰕈 ekusiadadus  ~   01:05 
- curl -w"time_total: %{time_total}\n" "https://new-giants.breakai.ai/posts/ogp/How%20To%20Perfectly%20Pitch%20Your%20Seed%20Stage%20Startup%20With%20Y%20Combinator's%20Michael%20Seibel.png"
+󰕈 ekusiadadus  ~   01:05
+ curl -w"time_total: %{time_total}\n" "https://new-giants.breakai.ai/posts/ogp/How%20To%20Perfectly%20Pitch%20Your%20Seed%20Stage%20Startup%20With%20Y%20Combinator's%20Michael%20Seibel.png"
 Warning: Binary output can mess up your terminal. Use "--output -" to tell
 Warning: curl to output it to your terminal anyway, or consider "--output
 Warning: <FILE>" to save to a file.
 time_total: 1.204007
 ```
 
-### 参考
+## 参考
 
-https://azukiazusa.dev/blog/satori-sveltekit-ogp-image/
-https://zenn.dev/de_teiu_tkg/articles/677dabfb5c739c
+- [Satori + SvelteKit で OGP 画像を動的生成する](https://azukiazusa.dev/blog/satori-sveltekit-ogp-image/)
+- [Satori で OGP 画像を動的生成する](https://zenn.dev/de_teiu_tkg/articles/677dabfb5c739c)
