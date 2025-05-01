@@ -141,7 +141,7 @@ Rust の Char 型は 1 つの Unicode コードポイントを表現します。
 Rust では、文字列にインデックスでアクセスできないのは、UTF-8 エンコーディングの特性によるものですが、他の言語ではこのような制約がない場合があります。
 例えば、同様のコードを C++で書くと、次のようになります。
 
-```C++
+```cpp
 #include<iostream>
 #include<string>
 using namespace std;
