@@ -10,6 +10,9 @@ published: true # 公開設定（falseにすると下書き）
 なんちゃってVim使いのみなさん、こんにちは。
 Vimを使っているのに、「j」連打や「l」連打でカーソルを動かしている人はVSCodeを使いましょう。
 hardtime.nvimは、なんとしてでもVimのキーバインドを覚えたい人向けのプラグインです。
+
+### こんな感じで最適なキーを提案してくれます
+
 ![デモ動画](/images/hardtime-vim/hardtime-vim.gif)
 
 ## hardtime.nvimとは
