@@ -15,6 +15,8 @@ hardtime.nvimは、なんとしてでもVimのキーバインドを覚えたい�
 
 ![デモ動画](/images/hardtime-vim/hardtime-vim.gif)
 
+![ポップアップで怒ってもらうデモ動画](/images/hardtime-vim/hardtime-vim-popup.mp4)
+
 ## hardtime.nvimとは
 
 [hardtime.nvim](https://github.com/m4xshen/hardtime.nvim)は、Vimのキーバインドを矯正するためのNeovimプラグインです。
@@ -35,3 +37,20 @@ hardtime.nvimは、なんとしてでもVimのキーバインドを覚えたい�
 },
 ```
 
+## ポップアップで怒ってもらう方法
+
+```lua
+  {
+    "rcarriga/nvim-notify",
+    event = "VeryLazy",
+    config = function()
+      require("notify").setup({
+        stages = "fade_in_slide_out",
+        timeout = 3000,
+        render = "default",
+        background_colour = "#000000",
+      })
+      vim.notify = require("notify")
+    end,
+  },
+```
