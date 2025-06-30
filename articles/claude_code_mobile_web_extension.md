@@ -12,7 +12,7 @@ topics: [
     'sveltekit',
     'aws',
   ] # タグ。["markdown", "rust", "aws"]のように指定する
-published: true # 公開設定（falseにすると下書き）
+published: false # 公開設定（falseにすると下書き）
 ---
 
 # Claude Code に全部賭けて個人開発(モバイル、ウェブ、拡張機能)を自動化した話 - 5 万円吹っ飛んだ実録
