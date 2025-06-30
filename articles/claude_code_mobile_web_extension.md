@@ -83,7 +83,7 @@ Claude Code で良いコードを生成するには、**具体的で詳細な指
 
 Claude Code が**一番美しいデザイン**を作ってくれるのが iOS アプリでした。なぜなんでしょうね？
 
-![iOS ホーム画面](/images/claude_code_mobile_extension/3.PNG)
+![iOS ホーム画面](/images/claude_code_mobile_extension/3.png)
 
 最初は、dynamicIsland や App Clip なども使っていたのですが、一旦機能を削って MVP を作ることに集中しました。
 
@@ -96,8 +96,8 @@ Claude Code が**一番美しいデザイン**を作ってくれるのが iOS �
 特に iOS では、LiquidGlass を意識して、最先端のドキュメントを参考にしながら、デザインを作ってもらいました。
 ![モンスター画面の画像](/images/claude_code_mobile_extension/4.png)
 モンスター画面では、モンスターと会話できるページへの遷移を作ってもらっていたのですが、後からいったん削除しました。
-![モンスター詳細画面の画像](/images/claude_code_mobile_extension/6.PNG)
-![モンスター詳細画面の画像2](/images/claude_code_mobile_extension/8.PNG)
+![モンスター詳細画面の画像](/images/claude_code_mobile_extension/6.png)
+![モンスター詳細画面の画像2](/images/claude_code_mobile_extension/8.png)
 モンスター詳細画面では、ストックしたコンテンツをもとに育成されたモンスターの情報を表示します。
 iOS アプリでは、モンスターの詳細画面を作成して、ストックしたコンテンツをもとに育成されたモンスターの情報を表示します。
 ![ストック画面の画像](/images/claude_code_mobile_extension/5.png)
