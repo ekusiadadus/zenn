@@ -2,7 +2,7 @@
 title: 'GTMのES5地獄から解放！Claude Code Skillを作ってマーケットプレイスに公開した話'
 type: 'tech'
 topics: ['claudecode', 'googletagmanager', 'javascript', 'analytics', 'ga4']
-published: false
+published: true
 ---
 
 # GTMのES5地獄から解放！Claude Code Skillを作ってマーケットプレイスに公開した話
