@@ -10,7 +10,7 @@ published: true
 - **月額固定費 約$2**（Secrets Manager + ECR + ログ）で話者分離付き文字起こしパイプラインを構築
 - **AWS Step Functions + Lambda** のフルサーバーレス構成
 - **pyannote.audio 3.1** で話者分離、**faster-whisper** で文字起こし、**gpt-5-mini** でLLM分析
-- 8時間の動画処理が **約$0.76** で完了（AWS Transcribe比で約15倍コスト効率）
+- 8時間の動画処理が **約$2.3**（x86、無料枠なし）で完了（AWS Transcribe比で約5倍コスト効率）
 - **States.DataLimitExceeded** などの落とし穴と解決策を詳解
 
 リポジトリ: https://github.com/ekusiadadus/ek-transcript
@@ -199,6 +199,15 @@ CloudWatch Logs:    $0.05/月程度（Step Functions + Lambda ログ）
 **使わない月でも約 $2。** 商用SaaSの月額 $50〜$200 と比較すると、年間で $576〜$2,376 の節約になります。
 :::
 
+:::message
+**料金根拠（2025-12時点）:**
+- Secrets Manager: [$0.40/シークレット/月](https://aws.amazon.com/secrets-manager/pricing/)
+- ECR: [$0.10/GB/月](https://aws.amazon.com/ecr/pricing/)（pyannote+whisperモデル込みで5-10GB）
+- CloudWatch Logs: [$0.50/GB取込 + $0.03/GB/月保管](https://aws.amazon.com/cloudwatch/pricing/)
+
+**代替案:** SSM Parameter Store の SecureString は無料ですが、4KB制限があり自動ローテーション機能がありません。
+:::
+
 ## 設計変遷: 当初案から現在の設計へ
 
 ### 当初案: 単純な直列処理
@@ -286,6 +295,11 @@ OVERLAP_DURATION = 30     # 30秒オーバーラップ
 
 pyannote.audio 3.1 で話者分離。各話者の埋め込みベクトルも抽出してS3に保存。
 
+:::message alert
+**pyannote.audio のライセンスについて:**
+pyannote/speaker-diarization-3.1 は **Hugging Face でのライセンス同意が必要** です。初回利用時に [モデルページ](https://huggingface.co/pyannote/speaker-diarization-3.1) でライセンス条項に同意し、HF_TOKEN を取得してください。商用利用の場合は別途ライセンス確認を推奨します。
+:::
+
 ```python
 from pyannote.audio import Pipeline
 
@@ -356,27 +370,35 @@ completion = client.beta.chat.completions.parse(
 )
 ```
 
-## コスト計算（$1 で 8時間動画）
+## コスト計算（8時間動画の代表例・2025-12）
+
+**前提条件:**
+- リージョン: us-east-1
+- Lambda: x86_64（arm64なら約20%安）
+- 無料枠なし、リトライなし
+- Map並列: Diarize×5、Transcribe×10
 
 実際に8時間（約900セグメント）の動画を処理した際のコスト内訳：
 
-| サービス | 使用量 | コスト |
+| サービス | 計算式 | コスト |
 |----------|--------|--------|
-| Lambda (Diarize) | 10240MB × 10分 × 6チャンク | $0.10 |
-| Lambda (Transcribe) | 3008MB × 30秒 × 900回 | $0.34 |
-| Lambda (その他) | 各種処理 | $0.06 |
-| Step Functions | 約6,000遷移 | $0.15 |
-| S3 | 読み書き | $0.01 |
+| Lambda (Diarize) | 10GB × 600秒 × 6チャンク = 36,000 GB-秒 | **$0.60** |
+| Lambda (Transcribe) | 2.94GB × 30秒 × 900回 = 79,380 GB-秒 | **$1.32** |
+| Lambda (その他) | ExtractAudio, Chunk, Merge, Split, Aggregate, LLM | $0.10 |
+| Step Functions | 約6,000遷移 × $0.025/1K | $0.15 |
+| S3 | 読み書き + 一時ストレージ | $0.02 |
 | OpenAI API | gpt-5-mini (入力300K + 出力8K tokens) | $0.10 |
-| **合計** | | **約 $0.76** |
+| **合計** | | **約 $2.3** |
 
 :::message alert
-**月額固定費: $0**
-Lambda、Step Functions、S3 はすべて従量課金。使わなければ課金されません。
+**Lambda料金の計算根拠（x86_64, us-east-1）:**
+- $0.0000166667/GB-秒
+- Diarize: 36,000 × $0.0000166667 = $0.60
+- Transcribe: 79,380 × $0.0000166667 = $1.32
 :::
 
 :::message
-pyannote.audio と faster-whisper をフル活用することで、AWS Transcribe ($0.024/分 = 8時間で $11.52) と比較して **約15倍コスト効率** が良くなっています。
+pyannote.audio と faster-whisper をフル活用することで、AWS Transcribe ($0.024/分 = 8時間で $11.52) と比較して **約5倍コスト効率** が良くなっています。arm64を使用すれば約$1.9まで下がり、約6倍の効率になります。
 :::
 
 ## 実装でハマったポイント集
@@ -443,6 +465,11 @@ torch.load = _torch_load_legacy  # pyannote import 前に適用
 ```
 
 **重要:** このパッチは `from pyannote.audio import Pipeline` より**前**に適用する必要がある。
+
+:::message alert
+**モンキーパッチのリスク:**
+この方法は PyTorch の内部動作を変更するため、将来のバージョンで動作しなくなる可能性があります。可能であれば pyannote.audio の safetensors 対応を待つか、公式の回避策を確認してください。本番環境では pyannote import 前に単体テストで動作確認することを推奨します。
+:::
 
 ### 3. Lambda コンテナのモデルダウンロード戦略
 
@@ -543,7 +570,7 @@ DynamoDB + AppSync → Dashboard
 - **月額固定費 約$2**（Secrets Manager + ECR + ログ）で話者分離文字起こしパイプラインを実現
 - **AWS Step Functions + Lambda** のフルサーバーレス構成で使った分だけ課金
 - **pyannote.audio** + **faster-whisper** + **gpt-5-mini** で高品質・低コスト
-- **8時間動画を約$0.76** で処理（AWS Transcribe 比 15倍コスト効率）
+- **8時間動画を約$2.3** で処理（AWS Transcribe 比 約5倍コスト効率）
 - **チャンク並列処理** + **埋め込みクラスタリング** で長時間音声に対応
 - **256KB 制限** は `resultPath: DISCARD` + S3 経由で回避
 
