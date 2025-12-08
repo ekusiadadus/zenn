@@ -2,12 +2,12 @@
 title: '$1で最大8時間の動画を話者分離・文字起こし・LLM分析するAWSパイプラインを作った'
 type: 'tech'
 topics: ['aws', 'stepfunctions', 'lambda', 'whisper', 'pyannote']
-published: false
+published: true
 ---
 
 ## TL;DR
 
-- **月額固定費ほぼゼロ**（Secrets Manager $0.40/月のみ）で話者分離付き文字起こしパイプラインを構築
+- **月額固定費 約$2**（Secrets Manager + ECR + ログ）で話者分離付き文字起こしパイプラインを構築
 - **AWS Step Functions + Lambda** のフルサーバーレス構成
 - **pyannote.audio 3.1** で話者分離、**faster-whisper** で文字起こし、**gpt-5-mini** でLLM分析
 - 8時間の動画処理が **約$0.76** で完了（AWS Transcribe比で約15倍コスト効率）
@@ -168,9 +168,9 @@ published: false
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## なぜサーバーレスか: 月額固定費ゼロの実現
+## なぜサーバーレスか: 月額固定費を最小化
 
-このパイプラインの最大の特徴は **月額固定費が完全にゼロ** という点です。
+このパイプラインの最大の特徴は **月額固定費を極限まで抑えた** という点です。
 
 | 構成要素 | 課金形態 | 月額固定費 |
 |----------|----------|-----------|
@@ -179,12 +179,24 @@ published: false
 | S3 | ストレージ + リクエスト課金 | $0〜 |
 | DynamoDB | オンデマンド課金 | $0 |
 | EventBridge | イベント課金 | $0 |
-| Secrets Manager | シークレット数課金 | $0.40/月 |
+| Cognito | 50,000 MAU まで無料 | $0 |
+| AppSync | リクエスト課金 | $0〜 |
+| **Secrets Manager** | シークレット数課金 | **$0.80/月**（2つ） |
+| **ECR** | コンテナイメージ保存 | **$0.50〜$1.00/月** |
+| **CloudWatch Logs** | ログ保存 | **$0.05/月** |
 
-**Secrets Manager の $0.40/月** が唯一の固定費ですが、これは OpenAI API キーを安全に管理するために必要です。環境変数に直接書くよりセキュア。
+### 実際の月額固定費
+
+```
+Secrets Manager:    $0.80/月（OpenAI + HuggingFace の2シークレット）
+ECR:               $0.50〜$1.00/月（MLモデル含むDockerイメージ 8個）
+CloudWatch Logs:    $0.05/月程度（Step Functions + Lambda ログ）
+───────────────────────────────────────────
+合計:               約 $1.50〜$2.00/月
+```
 
 :::message
-**使わない月は $0.40 だけ。** 商用SaaSの月額 $50〜$200 と比較すると、年間で $600〜$2,400 の節約になります。
+**使わない月でも約 $2。** 商用SaaSの月額 $50〜$200 と比較すると、年間で $576〜$2,376 の節約になります。
 :::
 
 ## 設計変遷: 当初案から現在の設計へ
@@ -528,7 +540,7 @@ DynamoDB + AppSync → Dashboard
 
 ## まとめ
 
-- **月額固定費ほぼゼロ**（$0.40/月）で話者分離文字起こしパイプラインを実現
+- **月額固定費 約$2**（Secrets Manager + ECR + ログ）で話者分離文字起こしパイプラインを実現
 - **AWS Step Functions + Lambda** のフルサーバーレス構成で使った分だけ課金
 - **pyannote.audio** + **faster-whisper** + **gpt-5-mini** で高品質・低コスト
 - **8時間動画を約$0.76** で処理（AWS Transcribe 比 15倍コスト効率）
@@ -536,6 +548,10 @@ DynamoDB + AppSync → Dashboard
 - **256KB 制限** は `resultPath: DISCARD` + S3 経由で回避
 
 全コードは [GitHub](https://github.com/ekusiadadus/ek-transcript) で公開しています。
+
+:::message alert
+**ところで Secrets Manager、1シークレット $0.40/月って高くない？** API キー2つ保存するだけで年間 $9.60。SSM Parameter Store の SecureString なら無料なのに...。でもまあ、自動ローテーションとか監査ログとか、エンタープライズ機能のお布施だと思って諦めてます。
+:::
 
 ## 参考資料
 
