@@ -64,7 +64,7 @@ Future<File> urlToFile(String imageUrl) async {
 }
 ```
 
-## 画像ファイルから scan パッケージで、QR コードを読み取る
+### 2. 画像ファイルから scan パッケージで、QR コードを読み取る
 
 次に、画像ファイルから scan パッケージで、QR コードを読み取ります。
 こんな感じで、scan パッケージの parse メソッドを使います。
@@ -126,3 +126,49 @@ scan パッケージを使うと、簡単に実装できました。
 他にも、qr_code_flutter とか google ml kit 使う方法があると思います。
 
 オンメモリでやる方法ない気がするんだよなぁ...
+
+## 追記
+
+QR コード周りで気になっているサイトとかパッケージをまとめておきます（ほとんど自分用）
+
+## QR コード周りのサイト
+
+### QR コードの生成
+
+https://www.cman.jp/QRcode/
+
+このサイトで、自分用のテスト QR コードをかなり生成しました。
+
+## 各言語 QR コードライブラリ
+
+### Dart
+
+### TypeScript
+
+#### QR-Code-generator
+
+https://github.com/nayuki/QR-Code-generator
+
+### C++
+
+#### QR-Code-generator
+
+https://github.com/nayuki/QR-Code-generator
+
+### Rust
+
+#### QR-Code-generator
+
+https://github.com/nayuki/QR-Code-generator
+
+### Python
+
+#### QR-Code-generator
+
+https://github.com/nayuki/QR-Code-generator
+
+### Java
+
+#### QR-Code-generator
+
+https://github.com/nayuki/QR-Code-generator
