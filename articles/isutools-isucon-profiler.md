@@ -1,161 +1,156 @@
 ---
-title: "ISUCONで「速くなった理由」を残すための1修正1ベンチ運用"
-emoji: "📊"
+title: "ISUCON14で50万点を取るために行ったこと"
+emoji: "🚕"
 type: "tech"
-topics: ["isucon", "go", "mysql", "performance", "observability"]
+topics: ["isucon", "go", "mysql", "performance"]
 published: false
 ---
 
-ISUCONでスコアが上がっても、変更が効いた理由まで説明できるとは限りません。ベンチマークには揺れがあり、スコアが高いrunでも仕様不整合を含む場合があります。また、平均1msのSQLでも10万回呼ばれれば、1回だけ遅いSQLより大きな負荷になります。
+ISUCON14のGo実装を改善し、95,656点から569,078点まで上げました。
 
-この記事では、ISUCON14のGo実装を改善した際に使った、次の運用を整理します。
+この記事では、50万点を超えるまでに実際に行った修正を順番にまとめます。ベンチマーカーのcorrectnessを通過した結果だけを採用しています。
 
-1. 変更を1つの意図に限定します。
-2. 同じ計測境界でベンチマークを1回実行します。
-3. スコアとcorrectnessを分けて判定します。
-4. SQL、HTTP、DB connection pool、CPUなどを同じartifactへ保存します。
-5. 採用またはrevertの理由を残します。
+## スコアの推移
 
-ISUCON14固有のマッチング実装を網羅する記事ではありません。別のISUCON問題や通常のWebアプリケーションでも再利用しやすい、計測と判断の方法に絞ります。
+主要な結果だけを抜き出すと、次のようになりました。
 
-## スコアだけでは採否を決めない
+| 主な変更 | score |
+|---|---:|
+| 計測とサービスを復旧 | 95,656 |
+| rolling Hungarian | 102,260 |
+| nearbyの位置とavailabilityを整理 | 210,955 |
+| notification response cache | 236,006 |
+| matcherを100ms周期に変更 | 285,746 |
+| coordinateのtransactionを短縮 | 309,372 |
+| ride statusをmemoryから返す | 359,732 |
+| matcherを10ms周期に変更 | 437,852 |
+| paymentのtransaction短縮と100ms grace | 542,441 |
+| matchingとnearbyの再公開を分離 | 567,276 |
+| ride履歴のN+1をcache化 | **569,078** |
 
-今回のベンチでは、次の3つを別々に扱いました。
+## 最初にindexとN+1を修正しました
 
-- **score**: ベンチマーカーが算出した性能指標
-- **correctness**: 仕様違反や不整合を示すerror code
-- **measurement health**: 計測の欠損、revision、dirty状態、計測区間
+`chairs`、`chair_locations`、`rides`、`ride_statuses`、`coupons`に複合indexを追加しました。
 
-たとえば、ある変更では637,737点まで伸びましたが、付近の椅子一覧に関するerror code 30が13件発生しました。raw scoreは高くても、アプリケーションの観測整合性を悪化させているため採用していません。
+`GET /api/app/nearby-chairs`とowner系APIは、chairごとにSQLを実行していたため、まとめて取得するSQLへ変更しました。
 
-一方、567,276点のrunは同じerror codeが0件でした。性能改善では最高値だけを残すのではなく、仕様を満たしたrollback地点を残すことが重要でした。
+この段階で、一度だけ遅いSQLより、notificationから何十万回も呼ばれる短いSQLの方が大きな負荷になることが分かりました。
 
-## 計測区間を固定する
+## matcherを1件ずつの処理から一括割り当てに変えました
 
-計測には、Goアプリケーションへ組み込んだ[isutools](https://github.com/ekusiadadus/isutools)を使いました。SQL、HTTP、nginx、DB connection pool、CPU、ホスト資源などを、1つのベンチマーク区間として保存できます。
+初期matcherは500msごとに1件しか割り当てませんでした。未割当rideと空いているchairが増えても、約2件/秒が上限です。
 
-ベンチスクリプトから行う操作は、次の3段階です。
+そこで、未割当rideとfree chairをまとめて取得し、距離とchairの速度をcostにしたHungarian法で一括割り当てするようにしました。
 
-```bash
-curl -fsS -X POST http://127.0.0.1:19191/reset
-./run-benchmark
-curl -fsS -X POST \
-  'http://127.0.0.1:19191/save?score=569078&pass=true'
-```
+ISURIDEには離れた2地域があります。遠い地域のchairを無理に割り当てず、長く待っているrideだけをfallback対象にしました。
 
-重要なのはコマンドの短さではなく、`reset`と`save`の間だけを比較対象にすることです。initialize前の処理や、ベンチ終了後のログ回収がrunごとに混ざると、差分の意味が変わります。
+現在の実装は、10msごとに現在の候補を解くrolling Hungarianです。一度決めた割り当ての解除や、busy chairの将来位置の予測は行っていません。
 
-保存時には次の情報も確認します。
+## 割り当てをGIFで比較しました
 
-- アプリケーションのcommit
-- artifactに埋め込まれたrevisionとdirty状態
-- collectorの欠損やdegraded表示
-- ベンチマーカーのpass/failとerror map
+左が95,656点時の実装、右が567,276点の実装です。
 
-今回の569,078点artifactはアクセスログのkey上限により`partial=true`で、埋め込みrevisionもdirtyでした。そのため、artifactだけで完全なprovenanceを主張せず、実機のアプリケーションcommit `7fc4a4c`、ベンチログ、artifact IDを対応付けています。計測ツールが警告を出したときは、警告を消すより証明範囲を狭める方が安全です。
+![ISUCON14の初期実装と最終実装の割り当て比較](https://ekusiadadus.com/images/isucon14/matching-before-after-567276.gif)
 
-## レポートは「遅い順」だけで読まない
+| 指標 | 初期版 | 567,276点版 |
+|---|---:|---:|
+| assignments | 1,810 | 10,760 |
+| 距離400以上の地域間割り当て | 491 | 0 |
+| pickupまでの平均距離 | 211.3 | 13.25 |
 
-改善候補は次の順で見ました。
+初期のartifactにはassignment eventがなかったため、左側は95,656点時のcommitへ計測だけを追加して再実行しています。右側は567,276点runの実データです。
 
-### 1. correctnessと計測の健全性
+## notificationのDB pollingを減らしました
 
-failしたrunや計測区間が壊れたrunは、性能比較の採用候補から外します。ただし、原因を追跡できるようartifactとcommitは残します。
+appとchairはnotification APIを高頻度で呼びます。同じride statusを毎回DBから組み立てていたため、DB connection poolを使い続けていました。
 
-### 2. 累計需要
+rideごとにgenerationを持つresponse cacheを追加し、statusやassignmentが変わったときだけ更新します。未送信のnotificationが残っている場合はcacheせず、先にqueueを処理します。
 
-SQLとHTTPは、平均時間だけでなく`count × latency`で生じる累計時間を見ます。短い処理でも呼び出し回数が多ければ、DB poolやCPUを長時間使います。
+状態が変わらない場合はJSON APIのままlong pollingするようにしました。
 
-### 3. 待ちと実行を分ける
+| notification | 変更前 | 変更後の比較run |
+|---|---:|---:|
+| app | 約155万回 | 約14.5万回 |
+| chair | 約37.9万回 | 約5.6万回 |
 
-HTTPの累計時間が大きくても、long pollingの待機時間ならCPU負荷とは限りません。同様に、DB pool waitが大きいことは、接続数を増やすべきという意味ではありません。
+SSEには変更していません。
 
-### 4. 資源の余力
+## coordinateとride statusをmemoryに移しました
 
-CPU、disk utilization、I/O PSI、DBの同時実行数を確認します。CPUに余裕があるのにDB poolだけが詰まっている場合は、SQL回数やtransactionの保持時間を先に疑います。
+chairは`POST /api/chair/coordinate`の応答が返るまで次の移動を始めません。このAPIが遅いと、rideの完了数も増えません。
 
-## 実例: 履歴APIのN+1をcacheで除去した
+次の変更を行いました。
 
-567,276点のartifactでは、`GET /api/app/rides`が完了済みrideを返すたびに、chairとownerを個別に取得していました。
+- INSERT直後に同じ座標をSELECTする処理を削除
+- 通常の位置更新から長いtransactionを削除
+- 最新座標をmemoryに保持
+- 最新ride statusをmemoryに保持
+- initialize時にcacheを作り直す
+
+coordinateは107,643 calls、平均73.6msから、191,528 calls、平均2.2msになりました。
+
+ownerのchair総走行距離も、リクエストごとに全座標から計算するのをやめました。initialize時に総距離を作り、その後はcoordinate更新時に移動距離を加算します。
+
+## matcherの周期を10msにしました
+
+matcherのSQLとcacheを整理してから、実行周期を100msから10msへ短縮しました。
+
+この変更で389,614点から437,852点になりました。先にmatcher自体を軽くしていたため、周期を短くしてもDB負荷を増やしすぎずに済みました。
+
+## paymentをDB transactionの外へ出しました
+
+rideのevaluationでは、外部payment APIをDB transaction内から呼んでいました。paymentの応答待ち中もconnectionとrow lockを保持します。
+
+修正後は、ride IDを`Idempotency-Key`に設定してpaymentを先に実行し、成功した後だけ短いtransactionを開きます。
+
+ただし、処理が速くなったことで、serverがchairを再公開するタイミングがbenchmark clientの評価完了より先になる問題が出ました。
+
+最初はchairの再利用を100ms遅らせ、542,441点になりました。その後、matcherにはすぐ再公開し、`GET /api/app/nearby-chairs`に対してだけclientの次回requestまで非表示にしました。これで567,276点になりました。
+
+## 最後にride履歴のN+1を削除しました
+
+567,276点のレポートでは、`GET /api/app/rides`から次のSQLがそれぞれ90,348回呼ばれていました。
 
 ```sql
 SELECT * FROM chairs WHERE id = ?;
 SELECT * FROM owners WHERE id = ?;
 ```
 
-これらは1回あたりは短いSQLです。しかし、1回のベンチでそれぞれ90,348回呼ばれ、2本の合計で約155.7秒を使っていました。
-
-アプリケーションにはすでにchairのID cacheがあったため、履歴APIからもそれを再利用しました。ownerについてはID cacheを追加し、initialize時に他のcacheと同時に消去します。履歴レスポンスで使うchair名、model、owner名はベンチ中に更新されないため、更新経路のない値だけを対象にしました。
-
-変更前後の同じ項目は次のとおりです。
+既存のchair cacheを再利用し、ownerもIDでcacheするようにしました。
 
 | 指標 | 変更前 | 変更後 |
 |---|---:|---:|
 | score | 567,276 | **569,078** |
-| `chairs WHERE id` | 90,348回 / 82.14秒 | **11回 / 0.002秒** |
-| `owners WHERE id` | 90,348回 / 73.56秒 | **3回 / 0.001秒** |
-| `GET /api/app/rides` 平均 | 6.62ms | **4.06ms** |
-| 同p95 | 33.55ms | **16.78ms** |
-| DB pool wait回数 | 65,991 | **50,323** |
-| DB pool wait合計 | 922.15秒 | **575.28秒** |
+| chairのSELECT | 90,348回 | 11回 |
+| ownerのSELECT | 90,348回 | 3回 |
+| `GET /api/app/rides` p95 | 33.55ms | 16.78ms |
+| DB pool wait合計 | 922.15秒 | 575.28秒 |
 
-スコア差は+1,802点、約+0.32%です。1回の比較だけで、この差を厳密な因果効果とは扱えません。一方で、対象SQLが約18万回から14回へ減り、履歴APIのp95とpool waitも同じ方向へ改善しています。実装の不変条件をテストし、correctness gateも通過したため、この変更は採用しました。
+スコア差は小さいですが、対象SQLとAPIのp95は減りました。次のボトルネックが別の場所へ移ったと判断しています。
 
-この例から分かるのは、「スコア差が小さいので無意味」でも「SQLが減ったので大幅な高速化」でもありません。局所的なN+1は除去できましたが、サービス全体の次の制約は別にある、という判断です。
+## 採用しなかった変更
 
-## DB pool waitを見て接続数を増やした失敗
+50万点を超えても、correctness errorが出たrunは採用していません。
 
-DB poolが100接続すべて使われていたため、200へ増やす実験も行いました。しかし、スコアは567,276点から546,855点へ下がりました。
+| 変更 | score | 結果 |
+|---|---:|---|
+| payment直後にchairを即時公開 | 591,636 | code 30が205件 |
+| nearby応答まで広くlock | 561,815 | code 30、31が発生 |
+| matchingとnearbyを両方即時公開 | 637,737 | code 30が13件 |
+| DB poolを100から200へ変更 | 546,855 | correctnessはpass、スコアが低下 |
 
-接続数を増やすと、待っていた処理がすべて有用な処理として進むとは限りません。今回のアプリケーションはnotification pollingが多く、同時に通すrequestを増やすとMySQL側の競合も増えます。この変更はrevertし、SQL回数とtransaction保持時間を減らす方へ戻しました。
-
-pool waitは原因そのものではなく、待ちが発生している場所です。次の点を併記しないと判断を誤ります。
-
-- pool slotを使っているendpoint
-- connectionを保持している時間
-- MySQLとアプリケーションのCPU
-- 完了した有用仕事の数
-- scoreとcorrectness
-
-## 1修正1ベンチを崩さない
-
-変更をまとめると、スコアが変わっても理由を分解できません。今回の履歴は、次の単位で残しました。
-
-```text
-仮説
-  ↓
-1つの意図を持つcommit
-  ↓
-reset → benchmark → save
-  ↓
-score / correctness / artifactを確認
-  ↓
-採用 または revert
-```
-
-設定変更も同じです。Goコード、MySQL設定、nginx設定を同時に変えず、できる限り別runにしました。ベンチの揺れが疑わしい場合は同じrevisionを再実行し、1回の最高値ではなく分布を確認します。
-
-## 計測ツールが自動では判断できないこと
-
-isutoolsから直接確認できるのは、SQL回数、HTTP latency、DB pool wait、CPU、I/O、変更前後の差分などです。一方で、次のような内容はアプリケーションの仕様を読まないと判断できません。
-
-- cacheしてよい値とinvalidate条件
-- clientが状態変化を観測する順序
-- scoreに寄与する業務上のcritical path
-- ベンチマーカー固有のerror codeの意味
-- 一時的な不整合が許容される時間
-
-計測結果は修正候補を絞るための根拠です。アプリケーション固有の正しさは、コード、仕様、ベンチマーカーログと突き合わせます。
+DB poolは100に戻しました。最も高いraw scoreではなく、correctnessを保った569,078点を最終結果にしています。
 
 ## まとめ
 
-Webアプリケーションの性能改善では、最も遅い1リクエストだけでなく、短い処理の回数、poolでの待ち、資源の余力、correctnessを同じrunで確認する必要があります。
+50万点を超えるまでに効果が大きかったのは、次の変更でした。
 
-今回特に役立った原則は次の4つです。
+- matcherを1件ずつから一括割り当てに変更
+- 2地域をまたぐ長距離割り当てを停止
+- notificationとride statusのDBアクセスをcacheとlong pollingで削減
+- coordinateのtransactionを短縮して最新状態をmemoryに保持
+- matcher周期を10msへ短縮
+- payment待ちをDB transactionの外へ移動
+- matchingとnearbyでchairの再公開タイミングを分離
 
-- scoreより先にcorrectnessと計測の健全性を確認します。
-- averageだけでなく、countと累計需要を見ます。
-- pool waitを接続数増加の指示とは解釈しません。
-- 失敗runとrevert理由もartifactとして残します。
-
-ISUCON14で行ったマッチング、通知、coordinate、payment、cacheの全変更と、95,656点から567,276点までの時系列、割り当て比較GIFは[本サイトのケーススタディ](https://ekusiadadus.com/ja/blog/isucon14-542k-with-isutools)にまとめています。導入方法とソースコードは[isutoolsのGitHubリポジトリ](https://github.com/ekusiadadus/isutools)で確認できます。
+計測には[isutools](https://github.com/ekusiadadus/isutools)を使いました。全runのartifact、失敗したcommit、詳細な時系列は[本サイトの記事](https://ekusiadadus.com/ja/blog/isucon14-542k-with-isutools)に残しています。
